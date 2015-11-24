@@ -14,6 +14,7 @@ public class sim {
 
 class robotInterface{
    public void print(){
-       System.out.println("hihi");
+       System.out.println("byebye");
    }
+
 }
