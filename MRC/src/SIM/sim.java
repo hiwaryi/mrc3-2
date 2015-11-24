@@ -1,10 +1,11 @@
 package SIM;
 
-/**
- * Created by kj on 2015-11-24.
- */
 public class sim {
+    public void hello(){
+
+    }
+
     public static void main(String[] args) {
-        asibal
+        System.out.println("hello world");
     }
 }
