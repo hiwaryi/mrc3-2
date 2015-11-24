@@ -5,6 +5,6 @@ package SIM;
  */
 public class sim {
     public static void main(String[] args) {
-
+        asibal
     }
 }
