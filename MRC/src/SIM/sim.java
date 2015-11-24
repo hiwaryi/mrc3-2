@@ -6,15 +6,6 @@ public class sim {
     }
 
     public static void main(String[] args) {
-        //System.out.println("hi");
-        robotInterface RI = new robotInterface();
-        RI.print();
+        System.out.println("hello world");
     }
-}
-
-class robotInterface{
-   public void print(){
-       System.out.println("byebye");
-   }
-
 }
