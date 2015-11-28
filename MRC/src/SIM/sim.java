@@ -74,6 +74,38 @@ public class sim {
         moveInterface();
     }
 
+
+    public Sensor sensoring(){
+        boolean hazard = false;
+        Colorblob cb = new Colorblob();
+        Position pos = new Position();
+        int frontData = map.getMapdata(position.front());
+        int leftData = map.getMapdata(position.left());
+        int rightData = map.getMapdata(position.right());
+        int backData = map.getMapdata(position.back());
+
+        // determine hazard
+        if(frontData == 1)
+            hazard = true;
+
+        // determine colorblob
+        if(frontData == 2)
+            cb.setFront(true);
+        if(leftData == 2)
+            cb.setLeft(true);
+        if(rightData == 2)
+            cb.setRight(true);
+        if(backData == 2)
+            cb.setBack(true);
+
+        // get Current Position
+        pos = map.getSIMPosition();
+
+        Sensor mySensor = new Sensor(hazard, cb, pos);
+
+        return mySensor;
+    }
+
     public void forceStop() {
         state = false;
     }

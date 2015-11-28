@@ -13,6 +13,13 @@ class Colorblob{
         this.right = false;
     }
 
+    public Colorblob(boolean front, boolean back, boolean left, boolean right){
+        this.front = front;
+        this.back = back;
+        this.left = left;
+        this.right = right;
+    }
+
     public boolean getFront(){
         return this.front;
     }
@@ -49,39 +56,82 @@ class Colorblob{
 class Position{
     private int x;
     private int y;
-    private string direction;
+    private int direction;
     private Position dir;
+    private final int FRONT = 1;
+    private final int RIGHT = 2;
+    private final int BACK = 3;
+    private final int LEFT = 4;
 
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
-        this.direction = new string("UP");
+        this.direction = 1;
     }
 
     public Position(){
         this.x = 0;
         this.y = 0;
-        this.direction = new string("UP");
+        this.direction = 1;
     }
 
-    public void setDirection(string direction) {
-        if(direction.equals("UP") || direction.equals("DOWN") || direction.equals("LEFT") || direction.equals("RIGHT"))
+    public void setDirection(int direction) {
+        if(1 <= direction && direction <= 4)
             this.direction = direction;
     }
 
     public Position front(){
         Position myFront = new Position();
 
-        if(this.direction.equals("UP"))
+        if(direction == FRONT)
             myFront.setPosition(this.x, this.y + 1);
-        else if(this.direction.equals("DOWN"))
+        else if(direction == BACK)
             myFront.setPosition(this.x, this.y - 1);
-        else if(this.direction.equals("LEFT"))
+        else if(direction == LEFT)
             myFront.setPosition(this.x - 1, this.y);
-        else if(this.direction.equals("RIGHT"))
+        else if(direction == RIGHT)
             myFront.setPosition(this.x + 1, this.y);
 
         return myFront;
+    }
+
+    public Position left(){
+        Position myLeft = newPosition();
+
+        if(direction == FRONT)
+            myLeft.setPosition(this.x - 1, this.y);
+        else if(direction == BACK)
+            myLeft.setPosition(this.x + 1, this.y);
+        else if(direction == LEFT)
+            myLeft.setPosition(this.x, this.y - 1);
+        else if(direction == RIGHT)
+            myLeft.setPosition(this.x, this.y + 1);
+    }
+
+    public Position right(){
+        Position myRight = newPosition();
+
+        if(direction == FRONT)
+            myRight.setPosition(this.x + 1, this.y);
+        else if(direction == BACK)
+            myRight.setPosition(this.x - 1, this.y);
+        else if(direction == LEFT)
+            myRight.setPosition(this.x, this.y + 1);
+        else if(direction == RIGHT)
+            myRight.setPosition(this.x, this.y - 1);
+    }
+
+    public Position back(){
+        Position myBack = newPosition();
+
+        if(direction == FRONT)
+            myBack.setPosition(this.x, this.y - 1);
+        else if(direction == BACK)
+            myBack.setPosition(this.x, this.y + 1);
+        else if(direction == LEFT)
+            myBack.setPosition(this.x + 1, this.y);
+        else if(direction == RIGHT)
+            myBack.setPosition(this.x - 1, this.y);
     }
 
     public int getX() {
@@ -104,6 +154,14 @@ class Position{
         this.x = x;
         this.y = y;
     }
+
+    public void setPosition(Position pos){
+        int x = pos.getX();
+        int y = pos.getY();
+
+        this.x = x;
+        this.y = y;
+    }
 }
 
 public class Sensor {
@@ -113,9 +171,15 @@ public class Sensor {
 
 
     public Sensor() {
-        hazard = false;
-        cb = new Colorblob();
-        pos = new Position(0, 0);
+        this.hazard = false;
+        this.cb = new Colorblob();
+        this.pos = new Position(0, 0);
+    }
+
+    public Sensor(boolean hazard, Colorblob cb, Position pos) {
+        this.hazard = hazard;
+        this.cb = cb;
+        this.pos = pos;
     }
 
     public boolean isHazard() {
