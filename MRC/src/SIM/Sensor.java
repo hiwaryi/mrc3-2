@@ -162,8 +162,8 @@ class Position{
         this.y = y;
     }
 
-    public Position getPosition(){
-        return new Position(this.x, this.y);
+    public Position getDirection(){
+        return direction;
     }
 }
 
