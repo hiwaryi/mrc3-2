@@ -11,14 +11,12 @@ public class sim {
 
     private Sensor sensor;
     private Position position;
+    private map map;
 
     public sim(){
-        sensor = new Sensor();
-        position = sensor.getPos();
+        position = map.getStartPosition();
         state = false;
         nextStep = -1;
-        sensor.isHazard();
-//        ADD_ON.EnterSensorData(sensor.isHazard(), sensor.getCb(), sensor.getPos());
     }
 
     public void moveInterface() {
@@ -30,31 +28,16 @@ public class sim {
             nowDirection = position.getDirection();
             switch (nextStep){
                 case 1://move to front
-                    switch (nowDirection){
-                        case FRONT:
-                            position.setPosition(xPos, yPos++);
-                            break;
-                        case RIGHT:
-                            position.setPosition(xPos++, yPos);
-                            break;
-                        case BACK:
-                            position.setPosition(xPos, yPos--);
-                            break;
-                        case LEFT:
-                            position.setPosition(xPos--, yPos);
-                            break;
-                        default:
-                            break;
-                    }
+                    position.setPosition(position.front());
                     break;
                 case 2://turn right
-                    nowDirection+=1;
-                    nowDirection%=4;
+                    nowDirection = (nowDirection +1)%4;
+                    nowDirection = nowDirection == 0 ? 4:nowDirection;
                     position.setDirection(nowDirection);
                     break;
                 case 3://turn left
-                    nowDirection-=1;
-                    nowDirection%=4;
+                    nowDirection = (nowDirection -1)%4;
+                    nowDirection = nowDirection == 0 ? 4:nowDirection;
                     position.setDirection(nowDirection);
                     break;
                 default:
@@ -74,11 +57,15 @@ public class sim {
         moveInterface();
     }
 
+    public Sensor getSensorData(){
+        return sensor;
+    }
+
 
     public Sensor sensoring(){
         boolean hazard = false;
         Colorblob cb = new Colorblob();
-        Position pos = new Position();
+
         int frontData = map.getMapdata(position.front());
         int leftData = map.getMapdata(position.left());
         int rightData = map.getMapdata(position.right());
@@ -99,7 +86,7 @@ public class sim {
             cb.setBack(true);
 
         // get Current Position
-        pos = map.getSIMPosition();
+        Position pos = map.getSIMPosition();
 
         Sensor mySensor = new Sensor(hazard, cb, pos);
 
