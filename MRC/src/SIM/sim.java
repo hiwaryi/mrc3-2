@@ -3,62 +3,61 @@ package SIM;
 public class sim {
     private boolean state;
     private int xPos, yPos;
-    private int nextDirection, nowDirection;
+    private int nextStep, nowDirection;
     private final int FRONT = 1;
     private final int RIGHT = 2;
     private final int BACK = 3;
     private final int LEFT = 4;
 
     private Sensor sensor;
+    private Position position;
 
     public sim(){
         sensor = new Sensor();
+        position = sensor.getPos();
         state = false;
-        nextDirection = -1;
-        nowDirection = FRONT;
+        nextStep = -1;
         sensor.isHazard();
         //ADD_ON.EnterSensorData(sensor.isHazard());
     }
 
-
     public void moveInterface() {
-        if(nextDirection!=-1) {
+        // 실제로 움직임
+        if(nextStep!=-1) {
             state = true;
-            switch (nextDirection){
-                case 1:
-                    if(nowDirection==FRONT)
-                        yPos++;
-                    else if(nowDirection==RIGHT)
-                        xPos++;
-                    else if(nowDirection==BACK)
-                        yPos--;
-                    else if(nowDirection==LEFT)
-                        xPos--;
-                    else
+            xPos = position.getX();
+            yPos = position.getY();
+            nowDirection = position.getDirection();
+            switch (nextStep){
+                case 1://move to front
+                    switch (nowDirection){
+                        case FRONT:
+                            position.setPosition(xPos, yPos++);
+                            break;
+                        case RIGHT:
+                            position.setPosition(xPos++, yPos);
+                            break;
+                        case BACK:
+                            position.setPosition(xPos, yPos--);
+                            break;
+                        case LEFT:
+                            position.setPosition(xPos--, yPos);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
-                case 2:
-                    if(nowDirection==FRONT)
-                        nowDirection = RIGHT;
-                    else if(nowDirection==RIGHT)
-                        nowDirection = BACK;
-                    else if(nowDirection==BACK)
-                        nowDirection = LEFT;
-                    else if(nowDirection==LEFT)
-                        nowDirection = FRONT;
-                    else
+                case 2://turn right
+                    nowDirection+=1;
+                    nowDirection%=4;
+                    position.setDirection(nowDirection);
                     break;
-                case 3:
-                    if(nowDirection==FRONT)
-                        nowDirection = LEFT;
-                    else if(nowDirection==RIGHT)
-                        nowDirection = FRONT;
-                    else if(nowDirection==BACK)
-                        nowDirection = RIGHT;
-                    else if(nowDirection==LEFT)
-                        nowDirection = BACK;
-                    else
+                case 3://turn left
+                    nowDirection-=1;
+                    nowDirection%=4;
+                    position.setDirection(nowDirection);
                     break;
-                default://err
+                default:
                     break;
             }
             state = false;
@@ -66,10 +65,12 @@ public class sim {
     }
 
     public void setNextStep(int next){
+        //ADD-ON한테 명령 받음
         // 1: move Front
         // 2: turn right;
         // 3: turn left;
-        nextDirection = next;
+        nextStep = next;
+        moveInterface();
     }
 
     public void forceStop() {
