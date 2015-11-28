@@ -18,11 +18,11 @@ public class sim {
         state = false;
         nextStep = -1;
         sensor.isHazard();
-        //ADD_ON.EnterSensorData(sensor.isHazard());
+//        ADD_ON.EnterSensorData(sensor.isHazard(), sensor.getCb(), sensor.getPos());
     }
 
     public void moveInterface() {
-        // 실제로 움직임
+        // move
         if(nextStep!=-1) {
             state = true;
             xPos = position.getX();
@@ -65,7 +65,8 @@ public class sim {
     }
 
     public void setNextStep(int next){
-        //ADD-ON한테 명령 받음
+        //get next step from ADD-ON
+        // 0: Exploring finished??
         // 1: move Front
         // 2: turn right;
         // 3: turn left;
