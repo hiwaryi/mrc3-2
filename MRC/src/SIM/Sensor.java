@@ -57,7 +57,6 @@ class Position{
     private int x;
     private int y;
     private int direction;
-    private Position dir;
     private final int FRONT = 1;
     private final int RIGHT = 2;
     private final int BACK = 3;
@@ -161,6 +160,10 @@ class Position{
 
         this.x = x;
         this.y = y;
+    }
+
+    public Position getPosition(){
+        return new Position(this.x, this.y);
     }
 }
 
