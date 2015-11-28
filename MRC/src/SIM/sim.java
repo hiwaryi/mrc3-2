@@ -100,4 +100,8 @@ public class sim {
     public boolean getState() {
         return state;
     }
+
+    public Position getPosition() {
+        return position;
+    }
 }
