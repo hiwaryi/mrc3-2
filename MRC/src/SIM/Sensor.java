@@ -95,7 +95,7 @@ class Position{
     }
 
     public Position left(){
-        Position myLeft = newPosition();
+        Position myLeft = new Position();
 
         if(direction == FRONT)
             myLeft.setPosition(this.x - 1, this.y);
@@ -105,10 +105,12 @@ class Position{
             myLeft.setPosition(this.x, this.y - 1);
         else if(direction == RIGHT)
             myLeft.setPosition(this.x, this.y + 1);
+
+        return myLeft;
     }
 
     public Position right(){
-        Position myRight = newPosition();
+        Position myRight = new Position();
 
         if(direction == FRONT)
             myRight.setPosition(this.x + 1, this.y);
@@ -118,10 +120,12 @@ class Position{
             myRight.setPosition(this.x, this.y + 1);
         else if(direction == RIGHT)
             myRight.setPosition(this.x, this.y - 1);
+
+        return myRight;
     }
 
     public Position back(){
-        Position myBack = newPosition();
+        Position myBack = new Position();
 
         if(direction == FRONT)
             myBack.setPosition(this.x, this.y - 1);
@@ -131,6 +135,8 @@ class Position{
             myBack.setPosition(this.x + 1, this.y);
         else if(direction == RIGHT)
             myBack.setPosition(this.x - 1, this.y);
+
+        return myBack;
     }
 
     public int getX() {
@@ -162,7 +168,7 @@ class Position{
         this.y = y;
     }
 
-    public Position getDirection(){
+    public int getDirection(){
         return direction;
     }
 }
