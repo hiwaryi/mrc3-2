@@ -14,7 +14,7 @@ public class sim {
     private map map;
 
     public sim(){
-        position = map.getStartPosition();
+        position = map.getStart();
         state = false;
         nextStep = -1;
     }
