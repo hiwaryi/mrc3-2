@@ -1,4 +1,6 @@
-package SIM;
+package ADD_ON;
+
+import SIM.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -93,7 +95,7 @@ public class RouteManager {
         Astar[][] astar  = new Astar[h][w];
         List<Position> openList = new ArrayList<Position>();
         List<Position> closedList = new ArrayList<Position>();
-        map map = new map(mapdata, new Position());
+        SIM.map map = new SIM.map(mapdata, new Position());
         int[][] d = {
                 {0, -1}, {-1, 0}, {1, 0}, {0, 1}
         };
@@ -182,7 +184,7 @@ public class RouteManager {
 
     public void makeRoute(){
         Position cur = new Position();
-        map map = new map(mapdata, cur);
+        SIM.map map = new SIM.map(mapdata, cur);
         int w = 5, h = 5;
         List<Position> predefinedSpot = map.getPredefinedSpot();
         boolean[] check = new boolean[map.getPredefinedSpot().size()];

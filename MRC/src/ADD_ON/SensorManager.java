@@ -11,7 +11,7 @@ public class SensorManager {
     private Colorblob cb;
     private Position pos;
     private Sensor sensor;
-    private routeManager r;
+    private RouteManager routeManager;
     private SIM.sim sim;
     private MapManager mapManager;
 
@@ -29,7 +29,7 @@ public class SensorManager {
 
         if(hazard == true){
             mapManager.updateHazard(sensor.getPos().front());
-            r.makeRoute(pos,hazard);
+            routeManager.makeRoute();
         }
 
         if(cb.getFront()==true)
