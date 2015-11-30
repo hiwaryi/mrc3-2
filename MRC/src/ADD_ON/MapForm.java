@@ -12,13 +12,11 @@ public class MapForm {
     String mapsize, startposition, predefinedspot, hazardspot, colorblob;
     MapManager mapManager;
 
-    MapForm(){
+    public MapForm(){
         sc = new Scanner(System.in);
-        EnterMapData();
-        mapManager = new MapManager(mapsize, startposition, predefinedspot, hazardspot, colorblob);
     }
 
-    private void EnterMapData(){
+    public MapManager EnterMapData(){
         System.out.println("init map");
         System.out.println("Map size : ");
         mapsize = sc.nextLine();
@@ -31,5 +29,9 @@ public class MapForm {
         hazardspot = sc.nextLine();
         System.out.println("Colorblob spot : ");
         colorblob = sc.nextLine();
+
+        mapManager = new MapManager(mapsize, startposition, predefinedspot, hazardspot, colorblob);
+
+        return mapManager;
     }
 }

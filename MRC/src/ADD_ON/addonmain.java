@@ -7,5 +7,9 @@ public class addonmain {
 
     public static void main(String[] args) {
         MapForm mapForm = new MapForm();
+        MapManager mapManager = mapForm.EnterMapData();
+        map map = mapManager.getMap();
+        RouteManager routeManager = new RouteManager();
+        routeManager.makeRoute();
     }
 }

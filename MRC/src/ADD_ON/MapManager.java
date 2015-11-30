@@ -32,7 +32,7 @@ public class MapManager {
         parseMapData(COLORBLOB, colorblob);
         parseMapData(PREDEFINED, preSpot);
         map = new ADD_ON.map(tempMap, getStartPosition(start));
-        printMap();
+        //printMap();
     }
 
     private void parseMapData(int what, String spot){
@@ -118,5 +118,9 @@ public class MapManager {
             }
             System.out.println();
         }
+    }
+
+    public ADD_ON.map getMap(){
+        return map;
     }
 }
