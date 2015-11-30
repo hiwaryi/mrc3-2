@@ -197,15 +197,25 @@ public class RouteManager {
             int next_index = -1; // index of min distance spot
 
             // searching for min distance spot from current position
-            for(Iterator<Position> it = predefinedSpot.iterator(); it.hasNext();){
-                Position tmp = it.next();
+            for(int i = 0; i < predefinedSpot.size(); i++){
+                Position tmp = predefinedSpot.get(i);
                 int distance = Math.abs(tmp.getX() - cur.getX()) + Math.abs(tmp.getY() - cur.getY());
 
                 if(min > distance){
                     min = distance;
-                    next_index = min;
+                    next_index = i;
                 }
             }
+
+//            for(Iterator<Position> it = predefinedSpot.iterator(); it.hasNext();){
+//                Position tmp = it.next();
+//                int distance = Math.abs(tmp.getX() - cur.getX()) + Math.abs(tmp.getY() - cur.getY());
+//
+//                if(min > distance){
+//                    min = distance;
+//                    next_index = it.;
+//                }
+//            }
 
             a_star(cur, predefinedSpot.get(next_index)); // get route
             cur = predefinedSpot.remove(next_index); // make min distance spot to current position
