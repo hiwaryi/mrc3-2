@@ -212,7 +212,7 @@ public class RouteManager {
         }
     }
 
-    public void orderNextStep(){
-
+    public Position orderNextStep(){
+        return route.getNext();
     }
 }
