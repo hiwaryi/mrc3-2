@@ -14,11 +14,15 @@ public class Route {
         return route;
     }
 
-    public void setRoute(Queue<Position> route) {
-        this.route = route;
+    public void addRoute(Position route) {
+        this.route.add(route);
     }
 
     public Position getNext(){
         return this.route.poll();
+    }
+
+    public void clearRoute(){
+        route.clear();
     }
 }
