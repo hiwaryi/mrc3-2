@@ -2,6 +2,7 @@ package ADD_ON;
 
 import SIM.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +15,9 @@ public class map {
         this.map = map;
         this.start = start;
         this.nowPos = start;
+        hazard = new ArrayList<Position>();
+        colorblob = new ArrayList<Position>();
+        predefinedSpot = new ArrayList<Position>();
     }
 
     public Position getStart() {
