@@ -63,6 +63,10 @@ public class map {
         return map[x][y];
     }
 
+    public int[][] getMap() {
+        return map;
+    }
+
     public Position getSIMPosition(){
         return  nowPos;
     }
