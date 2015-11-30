@@ -16,7 +16,7 @@ public class MapManager {
     public static final int PREDEFINED = 3;
     public static final int HIDEHAZARD = 4;
 
-    private map map;
+    private ADD_ON.map map;
     private Position startPosition;
     public int[][] tempMap;
     public int mapX, mapY;
@@ -31,7 +31,7 @@ public class MapManager {
         parseMapData(HAZARD, hazardSpot);
         parseMapData(COLORBLOB, colorblob);
         parseMapData(PREDEFINED, preSpot);
-        map = new map(tempMap, getStartPosition(start));
+        map = new ADD_ON.map(tempMap, getStartPosition(start));
         printMap();
     }
 
@@ -78,8 +78,12 @@ public class MapManager {
         }
     }
 
-    private void  updateMap(){
+    public void updateColorblob(Position colorblob){
+        map.addColorblob(colorblob);
+    }
 
+    public void updateHazard(Position hazard){
+        map.addHazard(hazard);
     }
 
     private void makeMap(String size){
