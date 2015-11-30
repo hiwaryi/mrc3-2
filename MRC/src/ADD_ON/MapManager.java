@@ -28,10 +28,12 @@ public class MapManager {
 
     public void initMap(String size, String start, String preSpot, String hazardSpot, String colorblob){
         makeMap(size);
+        map = new ADD_ON.map(tempMap, getStartPosition(start));
+
         parseMapData(HAZARD, hazardSpot);
         parseMapData(COLORBLOB, colorblob);
         parseMapData(PREDEFINED, preSpot);
-        map = new ADD_ON.map(tempMap, getStartPosition(start));
+        //map = new ADD_ON.map(tempMap, getStartPosition(start));
         //printMap();
     }
 
@@ -46,7 +48,8 @@ public class MapManager {
                     int index = temp.indexOf(" ");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    tempMap[y][x] = HAZARD;
+                    map.addHazard(new Position(x, y));
+                    // tempMap[y][x] = HAZARD;
                 }
                 break;
             case COLORBLOB:
@@ -58,7 +61,8 @@ public class MapManager {
                     int index = temp.indexOf(" ");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    tempMap[y][x] = COLORBLOB;
+                    map.addColorblob(new Position(x, y));
+//                    tempMap[y][x] = COLORBLOB;
                 }
                 break;
             case PREDEFINED:
@@ -70,7 +74,8 @@ public class MapManager {
                     int index = temp.indexOf(" ");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    tempMap[y][x] = PREDEFINED;
+                    map.addPredefinedSpot(new Position(x, y));
+//                    tempMap[y][x] = PREDEFINED;
                 }
                 break;
             default:

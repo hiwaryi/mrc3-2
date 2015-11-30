@@ -19,6 +19,7 @@ class Astar { // blocks for astar
         H = 0;
         state = 0;
         this.cur = cur;
+        System.out.println("got it");
     }
 
     public Position getParent() {
@@ -100,11 +101,17 @@ public class RouteManager {
                 {0, -1}, {-1, 0}, {1, 0}, {0, 1}
         };
 
+        for(int i = 0; i < h; i++){
+            for(int j = 0; j < w; j++)
+                astar[i][j] = new Astar();
+        }
+
         // initializing
         for(Position pos : map.getHazard()){
             if(map.getMapdata(pos) == 1)
                 astar[pos.getY()][pos.getX()].setState(1);
         }
+
         astar[cur.getY()][cur.getX()].setH(Math.abs(cur.getX() - to.getX()) + Math.abs(cur.getY() - to.getY()));
         openList.add(cur);
 
@@ -139,10 +146,10 @@ public class RouteManager {
                 y = openList.get(i).getY();
 
                 // set G
-                int distance = Math.abs(cur.getX() - from.getX()) + Math.abs(cur.getY() - from.getY());
+                int distance = Math.abs(x - from.getX()) + Math.abs(y - from.getY());
                 astar[y][x].setG(distance);
                 // set H
-                distance = Math.abs(cur.getX() - to.getX()) + Math.abs(cur.getY() - to.getY());
+                distance = Math.abs(x - to.getX()) + Math.abs(y - to.getY());
                 astar[y][x].setH(distance);
                 // set F
                 astar[y][x].calcF();
@@ -164,6 +171,8 @@ public class RouteManager {
 
             if(minPos != cur)
                 cur = minPos;
+
+            System.out.println(cur.getX() + ", " + cur.getY());
         }
 
         // save Path

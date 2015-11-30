@@ -15,8 +15,8 @@ public class SensorManager {
     private SIM.sim sim;
     private MapManager mapManager;
 
-    public SensorManager(){
-        sim = new sim();
+    public SensorManager(sim sim){
+        this.sim = sim;
         hazard = false;
         determineSensoring();
     }
@@ -29,7 +29,7 @@ public class SensorManager {
 
         if(hazard == true){
             mapManager.updateHazard(sensor.getPos().front());
-            routeManager.makeRoute();
+            routeManager.makeRoute(mapManager.getMap());
         }
 
         if(cb.getFront()==true)
