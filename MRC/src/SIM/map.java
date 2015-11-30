@@ -14,6 +14,10 @@ public class map {
         this.nowPos = start;
     }
 
+    public int[][] getMap(){
+        return map;
+    }
+
     public Position getStart() {
         return start;
     }
@@ -43,7 +47,7 @@ public class map {
     }
 
     public List<Position> getPredefinedSpot() {
-        return predefinedSpot;
+        return this.predefinedSpot;
     }
 
     public void addPredefinedSpot(Position predefinedSpot) {
