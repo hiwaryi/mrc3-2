@@ -73,7 +73,7 @@ class Astar { // blocks for astar
 public class RouteManager {
     private Position expectedPosition;
     private Route route;
-    private int[][] mapdata = {{0, 0, 1, 0, 1}, {2, 0, 1, 0, 0}, {1, 2, 1, 0, 0}, {0, 0, 2, 2, 1}, {0, 0, 1, 2, 0}};
+    private map map;
 
     public RouteManager() {
         this.expectedPosition = new Position();
@@ -95,7 +95,7 @@ public class RouteManager {
         Astar[][] astar  = new Astar[h][w];
         List<Position> openList = new ArrayList<Position>();
         List<Position> closedList = new ArrayList<Position>();
-        SIM.map map = new SIM.map(mapdata, new Position());
+        int[][] mapArray = map.getMap();
         int[][] d = {
                 {0, -1}, {-1, 0}, {1, 0}, {0, 1}
         };
@@ -116,7 +116,7 @@ public class RouteManager {
             int pivot = openList.size();
 
             // if reached destination, break the while
-            if(mapdata[y][x] == 3)
+            if(mapArray[y][x] == 3)
                 break;
 
             // add surrounding blocks into openList
@@ -125,7 +125,7 @@ public class RouteManager {
                 int newX = newPos.getX(); // the spot i'm looking at(surrounding spot)
                 int newY = newPos.getY();
                 if(0 <= newX && newX <= w && 0 <= newY && newY <= h){
-                    if(mapdata[newY][newX] == 0){ // if newPos is available
+                    if(mapArray[newY][newX] == 0){ // if newPos is available
                         openList.add(newPos);
                         astar[newY][newX].setState(2); // set this block as openList
                         astar[newY][newX].setParent(new Position(x, y));
@@ -182,14 +182,14 @@ public class RouteManager {
             route.addRoute(path.get(i));
     }
 
-    public void makeRoute(){
+    public void makeRoute(map map){
         Position cur = new Position();
-        SIM.map map = new SIM.map(mapdata, cur);
         int w = 5, h = 5;
         List<Position> predefinedSpot = map.getPredefinedSpot();
         boolean[] check = new boolean[map.getPredefinedSpot().size()];
         for(int i = 0; i < map.getPredefinedSpot().size(); i++)
             check[i] = false;
+        this.map = map;
 
         int repeat = predefinedSpot.size();
         while(repeat-- >= 0){
