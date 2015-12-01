@@ -121,4 +121,15 @@ public class Position {
     public int getDirection(){
         return direction;
     }
+
+    @Override
+    public boolean equals(Object in){
+        int x = ((Position)in).getX();
+        int y = ((Position)in).getY();
+
+        if(this.getX() == x && this.getY() == y)
+            return true;
+        else
+            return false;
+    }
 }
