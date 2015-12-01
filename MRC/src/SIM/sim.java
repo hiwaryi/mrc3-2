@@ -11,9 +11,10 @@ public class sim {
 
     private Sensor sensor;
     private Position position;
-    private map map;
+    private Simmap map;
 
-    public sim(){
+    public sim(Simmap map){
+        this.map = map;
         position = map.getStart();
         state = false;
         nextStep = -1;
@@ -58,7 +59,7 @@ public class sim {
     }
 
     public Sensor getSensorData(){
-        return sensor;
+        return sensoring();
     }
 
 

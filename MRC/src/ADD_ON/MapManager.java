@@ -1,7 +1,6 @@
 package ADD_ON;
 
 import SIM.Position;
-import SIM.map;
 
 import java.util.StringTokenizer;
 
@@ -33,8 +32,6 @@ public class MapManager {
         parseMapData(HAZARD, hazardSpot);
         parseMapData(COLORBLOB, colorblob);
         parseMapData(PREDEFINED, preSpot);
-        //map = new ADD_ON.map(tempMap, getStartPosition(start));
-        //printMap();
     }
 
     private void parseMapData(int what, String spot){
@@ -49,7 +46,6 @@ public class MapManager {
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
                     map.addHazard(new Position(x, y));
-                    // tempMap[y][x] = HAZARD;
                 }
                 break;
             case COLORBLOB:
@@ -62,7 +58,6 @@ public class MapManager {
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
                     map.addColorblob(new Position(x, y));
-//                    tempMap[y][x] = COLORBLOB;
                 }
                 break;
             case PREDEFINED:
@@ -75,7 +70,6 @@ public class MapManager {
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
                     map.addPredefinedSpot(new Position(x, y));
-//                    tempMap[y][x] = PREDEFINED;
                 }
                 break;
             default:
