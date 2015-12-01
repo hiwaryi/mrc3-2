@@ -22,8 +22,8 @@ public class Route {
         this.route.add(route);
     }
 
-    public Position getNext(){
-        return this.route.poll();
+    public int getNext(){
+        return this.exe.poll();
     }
 
     public void clearRoute(){
