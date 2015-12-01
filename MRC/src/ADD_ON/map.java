@@ -8,6 +8,7 @@ import java.util.List;
 
 public class map {
     private int[][] map;
+    private int w, h;
     private Position start, nowPos;
     private List<Position> hazard, colorblob, predefinedSpot;
 
@@ -18,6 +19,16 @@ public class map {
         hazard = new ArrayList<Position>();
         colorblob = new ArrayList<Position>();
         predefinedSpot = new ArrayList<Position>();
+        h = this.map.length;
+        w = this.map[0].length;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public int getH() {
+        return h;
     }
 
     public Position getStart() {
