@@ -3,7 +3,6 @@ package ADD_ON;
 import SIM.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 class Astar { // blocks for astar
@@ -91,7 +90,7 @@ public class RouteManager {
     // composite a* algorithm
     private void a_star(Position from, Position to){
         Position cur = from;
-        int w = 5, h = 5;
+        int w = map.getW(), h = map.getH();
         Astar[][] astar  = new Astar[h][w];
         List<Position> openList = new ArrayList<Position>();
         List<Position> closedList = new ArrayList<Position>();
