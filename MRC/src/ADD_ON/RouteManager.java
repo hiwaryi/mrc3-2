@@ -12,14 +12,13 @@ class Astar { // blocks for astar
     private int F, G, H;
     private int state; // 0 : nothing, 1 : hazard, 2 : openList, 3 : closedList
 
-    public void astar(Position cur){
-        parent = new Position(-1, -1);
+    public Astar(Position cur){
+        parent = null;
         F = 0;
         G = 0;
         H = 0;
         state = 0;
         this.cur = cur;
-        System.out.println("got it");
     }
 
     public Position getParent() {
@@ -103,7 +102,7 @@ public class RouteManager {
 
         for(int i = 0; i < h; i++){
             for(int j = 0; j < w; j++)
-                astar[i][j] = new Astar();
+                astar[i][j] = new Astar(new Position(j, i));
         }
 
         // initializing
@@ -119,11 +118,12 @@ public class RouteManager {
         while(!openList.isEmpty()){
             openList.remove(cur);
             closedList.add(cur);
+            astar[cur.getY()][cur.getX()].setState(3);
             int x = cur.getX(), y = cur.getY();
             int pivot = openList.size();
 
             // if reached destination, break the while
-            if(mapArray[y][x] == 3)
+            if(mapArray[y][x] == 3 && (x != from.getX() || y != from.getY()))
                 break;
 
             // add surrounding blocks into openList
@@ -131,8 +131,8 @@ public class RouteManager {
                 Position newPos = new Position(x + d[i][0], y + d[i][1]);
                 int newX = newPos.getX(); // the spot i'm looking at(surrounding spot)
                 int newY = newPos.getY();
-                if(0 <= newX && newX <= w && 0 <= newY && newY <= h){
-                    if(mapArray[newY][newX] == 0){ // if newPos is available
+                if(0 <= newX && newX < w && 0 <= newY && newY < h){
+                    if((mapArray[newY][newX] == 0 || mapArray[newY][newX] == 3) && astar[newY][newX].getState() == 0 ){ // if newPos is available
                         openList.add(newPos);
                         astar[newY][newX].setState(2); // set this block as openList
                         astar[newY][newX].setParent(new Position(x, y));
@@ -165,21 +165,18 @@ public class RouteManager {
 
                 if(min > F){
                     min = F;
-                    minPos = new Position(x, y);
+                    minPos = openList.get(i);
                 }
             }
 
             if(minPos != cur)
                 cur = minPos;
-
-            System.out.println(cur.getX() + ", " + cur.getY());
         }
 
         // save Path
         List<Position> path = new ArrayList<Position>();
-        path.add(to);
         Position lastNode = to;
-        while(lastNode != from){
+        while(lastNode != from && lastNode != null){
             Astar newAstar = astar[lastNode.getY()][lastNode.getX()];
 
             path.add(newAstar.getCur());
@@ -187,8 +184,10 @@ public class RouteManager {
         }
 
         // reverse the path
-        for(int i = path.size() - 1; i >= 0; i--)
+        for(int i = path.size() - 2; i >= 0; i--) {
             route.addRoute(path.get(i));
+            System.out.println(path.get(i).getX() + ", " + path.get(i).getY());
+        }
     }
 
     public void makeRoute(map map){
@@ -201,7 +200,7 @@ public class RouteManager {
         this.map = map;
 
         int repeat = predefinedSpot.size();
-        while(repeat-- >= 0){
+        while(repeat-- > 0){
             int min = Integer.MAX_VALUE; // min distance from current position
             int next_index = -1; // index of min distance spot
 
@@ -215,16 +214,6 @@ public class RouteManager {
                     next_index = i;
                 }
             }
-
-//            for(Iterator<Position> it = predefinedSpot.iterator(); it.hasNext();){
-//                Position tmp = it.next();
-//                int distance = Math.abs(tmp.getX() - cur.getX()) + Math.abs(tmp.getY() - cur.getY());
-//
-//                if(min > distance){
-//                    min = distance;
-//                    next_index = it.;
-//                }
-//            }
 
             a_star(cur, predefinedSpot.get(next_index)); // get route
             cur = predefinedSpot.remove(next_index); // make min distance spot to current position
