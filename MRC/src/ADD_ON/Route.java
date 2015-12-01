@@ -42,6 +42,10 @@ public class Route {
     }
 
     public Integer getExe(){
-        return this.exe.poll();
+        Integer returnVal = this.exe.poll();
+        if(returnVal != null)
+            return returnVal;
+        else
+            return -1;
     }
 }
