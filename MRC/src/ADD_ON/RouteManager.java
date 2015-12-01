@@ -233,7 +233,7 @@ public class RouteManager {
         }
     }
 
-    public int orderNextStep(){
+    public Integer orderNextStep(){
         return route.getExe();
     }
 }
