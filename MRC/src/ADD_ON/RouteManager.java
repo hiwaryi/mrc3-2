@@ -185,7 +185,7 @@ public class RouteManager {
         // reverse the path
         for(int i = path.size() - 2; i >= 0; i--) {
             route.addRoute(path.get(i));
-            System.out.println(path.get(i).getX() + ", " + path.get(i).getY());
+//            System.out.println(path.get(i).getX() + ", " + path.get(i).getY());
         }
     }
 
@@ -219,18 +219,32 @@ public class RouteManager {
         }
 
         Position now = map.getStart();
+        int direction = 1;
         while(!route.isEmpty()){
             Position next = route.getNext();
+            next.setDirection(direction);
 
-            if(now.front().equals(next))
-                route.addExe(1);
-            else if(now.left().equals(next))
+            if(now.left().equals(next)) {
                 route.addExe(3);
-            else if(now.right().equals(next))
+                direction = now.getDirection() - 1 == 0 ? 4 : now.getDirection() - 1;
+                next.setDirection(direction);
+            }
+            else if(now.right().equals(next)) {
                 route.addExe(2);
-            else if(now.back().equals(next))
-                route.addExe(4);
+                direction = now.getDirection() + 1 == 5 ? 1 : now.getDirection() + 1;
+                next.setDirection(direction);
+            }
+            else if(now.back().equals(next)) {
+                route.addExe(3);
+                route.addExe(3);
+                direction = now.getDirection() - 2 == 0 ? 4 : now.getDirection() - 2 == -1 ? 3 : now.getDirection() - 2;
+                next.setDirection(direction);
+            }
+
+            route.addExe(1);
+            now = next;
         }
+
     }
 
     public Integer orderNextStep(){
