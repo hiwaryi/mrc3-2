@@ -131,7 +131,7 @@ public class RouteManager {
                 int newX = newPos.getX(); // the spot i'm looking at(surrounding spot)
                 int newY = newPos.getY();
                 if(0 <= newX && newX < w && 0 <= newY && newY < h){
-                    if((mapArray[newY][newX] == 0 || mapArray[newY][newX] == 3) && astar[newY][newX].getState() == 0 ){ // if newPos is available
+                    if((mapArray[newY][newX] != 1) && astar[newY][newX].getState() == 0 ){ // if newPos is available
                         openList.add(newPos);
                         astar[newY][newX].setState(2); // set this block as openList
                         astar[newY][newX].setParent(new Position(x, y));
