@@ -12,6 +12,7 @@ public class Route {
 
     public Route() {
         this.route = new LinkedList<Position>();
+        this.exe = new LinkedList<Integer>();
     }
 
     public Queue<Position> getRoute() {
