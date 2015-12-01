@@ -29,30 +29,9 @@ public class addonmain {
 
         String msg = "";
         while(position!=-1){
-            System.out.println("now : "+sim.getPosition().getX()+", "+sim.getPosition().getY());
-            switch (sim.getPosition().getDirection()){
-                case 1:
-                    msg = "front";
-                    break;
-                case 2:
-                    msg = "right";
-                    break;
-                case 3:
-                    msg = "back";
-                    break;
-                case 4:
-                    msg = "left";
-                    break;
-                default:
-                    break;
-            }
-            //System.out.println("now dircetion : "+msg);
-            /*
-            if(next==1 || next==0) {
-                System.out.println("next : " + position.getX() + ", " + position.getY());
-                position = routeManager.orderNextStep();
-            }*/
             sim.setNextStep(position);
+            System.out.println("now : "+sim.getPosition().getX()+", "+sim.getPosition().getY());
+            position = routeManager.orderNextStep();
         }
         System.out.println("exploring finish");
     }
