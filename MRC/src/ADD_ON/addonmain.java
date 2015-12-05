@@ -4,35 +4,51 @@ import SIM.Position;
 import SIM.Simmap;
 import SIM.sim;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
-/**
- * Created by kj on 2015-11-29.
- */
-public class addonmain {
+import javax.swing.JFrame;
 
-    public static void main(String[] args) {
-        MapForm mapForm = new MapForm();
-        MapManager mapManager = mapForm.EnterMapData();
-        map map = mapManager.getMap();
+public class addonmain extends JFrame{
+    private MapManager mapManager;
+    private MapForm mapForm;
+    private map map;
+    private RouteManager routeManager;
+    private Simmap simmap;
+    private sim sim;
+    private SensorManager sensorManager;
 
-        RouteManager routeManager = new RouteManager();
+    public addonmain() {
+
+        mapForm = new MapForm();
+        mapManager = mapForm.EnterMapData();
+        while(mapManager==null) {
+            mapManager = mapForm.getMapManager();
+            if(mapManager == null)
+                System.out.println("is null"); // <- 여기 고치면 안돌아감. 미스테리
+        }
+        //mapManager.printMap();
+        map = mapManager.getMap();
+        routeManager = new RouteManager();
         routeManager.makeRoute(map);
 
-        Simmap simmap = new Simmap(map.getMap(), map.getStart());
-        sim sim = new sim(simmap);
-        SensorManager sensorManager = new SensorManager(sim);
+        simmap = new Simmap(map.getMap(), map.getStart());
+        sim = new sim(simmap);
+        sensorManager = new SensorManager(sim);
+
         Integer position = routeManager.orderNextStep();
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("start!!");
-
-        String msg = "";
         while(position!=-1){
             sim.setNextStep(position);
             System.out.println("now : "+sim.getPosition().getX()+", "+sim.getPosition().getY());
             position = routeManager.orderNextStep();
         }
-        System.out.println("exploring finish");
+        System.out.println("finish");
+    }
+
+    public static void main(String[] args) {
+
+        addonmain addonmain = new addonmain();
+
     }
 }

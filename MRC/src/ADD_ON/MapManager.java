@@ -15,23 +15,52 @@ public class MapManager {
     public static final int PREDEFINED = 3;
     public static final int HIDEHAZARD = 4;
 
-    private ADD_ON.map map;
+    private map map;
     private Position startPosition;
     public int[][] tempMap;
     public int mapX, mapY;
     private StringTokenizer token;
 
-    MapManager(String size, String start, String preSpot, String hazardSpot, String colorblob){
-        initMap(size, start, preSpot, hazardSpot, colorblob);
+    MapManager(String mapData){
+        System.out.println(mapData);
+        initMap(mapData);
     }
 
-    public void initMap(String size, String start, String preSpot, String hazardSpot, String colorblob){
-        makeMap(size);
-        map = new ADD_ON.map(tempMap, getStartPosition(start));
+    public void initMap(String mapData){
+        String temp[] = mapData.split("\\r?\\n");
+        for(int i=0; i<temp.length; i++){
+            switch(i){
+                case 0:
+                    makeMap(temp[i]);
+                    break;
+                case 1:
+                    map = new map(tempMap, getStartPosition(temp[i]));
+                    break;
+                case 2:
+                    parseMapData(HAZARD, temp[i]);
+                    break;
+                case 3:
+                    parseMapData(COLORBLOB, temp[i]);
+                    break;
+                case 4:
+                    parseMapData(PREDEFINED, temp[i]);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
-        parseMapData(HAZARD, hazardSpot);
-        parseMapData(COLORBLOB, colorblob);
-        parseMapData(PREDEFINED, preSpot);
+    private void makeMap(String size){
+        int index = size.indexOf(",");
+        mapX = Integer.parseInt(size.substring(1, index));
+        mapY = Integer.parseInt(size.substring(index+1, size.length()-1));
+        tempMap = new int[mapY+1][mapX+1];
+        for(int i=0; i<=mapY; i++){
+            for(int j=0; j<=mapX; j++) {
+                tempMap[i][j] = EMPTY;
+            }
+        }
     }
 
     private void parseMapData(int what, String spot){
@@ -42,7 +71,7 @@ public class MapManager {
                 while(token.hasMoreTokens()){
                     String temp = token.nextToken();
                     temp = temp + ")";
-                    int index = temp.indexOf(" ");
+                    int index = temp.indexOf(",");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
                     map.addHazard(new Position(x, y));
@@ -54,7 +83,7 @@ public class MapManager {
                 while(token.hasMoreTokens()){
                     String temp = token.nextToken();
                     temp = temp + ")";
-                    int index = temp.indexOf(" ");
+                    int index = temp.indexOf(",");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
                     map.addColorblob(new Position(x, y));
@@ -66,7 +95,7 @@ public class MapManager {
                 while(token.hasMoreTokens()){
                     String temp = token.nextToken();
                     temp = temp + ")";
-                    int index = temp.indexOf(" ");
+                    int index = temp.indexOf(",");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
                     map.addPredefinedSpot(new Position(x, y));
@@ -85,24 +114,10 @@ public class MapManager {
         map.addHazard(hazard);
     }
 
-    private void makeMap(String size){
-        int index = size.indexOf(" ");
-        mapX = Integer.parseInt(size.substring(1, index));
-        mapY = Integer.parseInt(size.substring(index+1, size.length()-1));
-        System.out.println("map size is : "+mapX+", "+mapY);
-        tempMap = new int[mapY+1][mapX+1];
-        for(int i=0; i<=mapY; i++){
-            for(int j=0; j<=mapX; j++) {
-                tempMap[i][j] = EMPTY;
-            }
-        }
-    }
-
     private Position getStartPosition(String start){
-        int index = start.indexOf(" ");
+        int index = start.indexOf(",");
         int x = Integer.parseInt(start.substring(1, index));
         int y = Integer.parseInt(start.substring(index+1, start.length()-1));
-        System.out.println("start position is : "+x+", "+y);
         startPosition = new Position(x, y);
         return startPosition;
     }
@@ -119,7 +134,7 @@ public class MapManager {
         }
     }
 
-    public ADD_ON.map getMap(){
+    public map getMap(){
         return map;
     }
 }
