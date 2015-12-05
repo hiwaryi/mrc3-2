@@ -20,15 +20,10 @@ public class addonmain extends JFrame{
     private SensorManager sensorManager;
 
     public addonmain() {
+        mapForm = new MapForm(this);
+    }
 
-        mapForm = new MapForm();
-        mapManager = mapForm.EnterMapData();
-        while(mapManager==null) {
-            mapManager = mapForm.getMapManager();
-            if(mapManager == null)
-                System.out.println("is null"); // <- 여기 고치면 안돌아감. 미스테리
-        }
-        //mapManager.printMap();
+    public void yay(){
         map = mapManager.getMap();
         routeManager = new RouteManager();
         routeManager.makeRoute(map);
@@ -46,9 +41,11 @@ public class addonmain extends JFrame{
         System.out.println("finish");
     }
 
+    public void setMapManager(MapManager mapManager){
+        this.mapManager = mapManager;
+    }
+
     public static void main(String[] args) {
-
         addonmain addonmain = new addonmain();
-
     }
 }

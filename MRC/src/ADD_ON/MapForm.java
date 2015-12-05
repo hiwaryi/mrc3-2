@@ -35,13 +35,9 @@ public class MapForm extends JFrame{
     private JButton EnterData;
     private JLabel hiddenLabel;
     private JLabel initLabel;
+    private addonmain addonmain;
 
-    public MapForm(){
-
-    }
-
-    public MapManager EnterMapData(){
-    setVisible(true);
+    public MapForm(addonmain addonmain) {
         getContentPane().setLayout(null);
         setSize(700, 700);
 
@@ -72,17 +68,21 @@ public class MapForm extends JFrame{
         EnterData.setBounds(349, 304, 97, 23);
         getContentPane().add(EnterData);
 
-        // 버튼을누르면 맵정보가 맵매니저로 전달.
+        setVisible(true);
+
+        this.addonmain = addonmain;
+
         EnterData.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 String data = mapData.getText().toString();
                 mapManager = new MapManager(data);
+
+                addonmain.setMapManager(mapManager);
+                addonmain.yay();
             }
         });
-
-        return null;
     }
 
     public MapManager getMapManager(){
