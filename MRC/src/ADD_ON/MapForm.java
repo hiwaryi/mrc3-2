@@ -1,25 +1,13 @@
 package ADD_ON;
 
-import SIM.Sensor;
-import SIM.Simmap;
-import SIM.sim;
-import SIM.Position;
-import SIM.Simmap;
-import SIM.sim;
-import javax.swing.*;
-import java.util.Scanner;
 
+import SIM.Position;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -33,6 +21,7 @@ public class MapForm extends JFrame{
     private JTextArea hiddenHazard;
     private JTextArea textArea;
     private JButton EnterData;
+    private JButton AddData;
     private JLabel hiddenLabel;
     private JLabel initLabel;
     private addonmain addonmain;
@@ -68,6 +57,10 @@ public class MapForm extends JFrame{
         EnterData.setBounds(349, 304, 97, 23);
         getContentPane().add(EnterData);
 
+        AddData = new JButton("Add Data");
+        AddData.setBounds(456, 304, 97, 23);
+        getContentPane().add(AddData);
+
         setVisible(true);
 
         this.addonmain = addonmain;
@@ -81,6 +74,26 @@ public class MapForm extends JFrame{
 
                 addonmain.setMapManager(mapManager);
                 addonmain.yay();
+            }
+        });
+
+        AddData.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String spot = hiddenHazard.getText().toString();
+                StringTokenizer token = new StringTokenizer(spot, ")");
+                int x = 0, y = 0;
+
+                spot = spot.substring(1, spot.length()-1);
+                token = new StringTokenizer(spot, ")");
+                while(token.hasMoreTokens()){
+                    String temp = token.nextToken();
+                    temp = temp + ")";
+                    int index = temp.indexOf(",");
+                    x = Integer.parseInt(temp.substring(1, index));
+                    y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
+                    addonmain.getSimMap().addHazard(new Position(x, y));
+                }
             }
         });
     }

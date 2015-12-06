@@ -9,13 +9,12 @@ import java.util.List;
 public class map {
     private int[][] map;
     private int w, h;
-    private Position start, nowPos;
+    private Position start;
     private List<Position> hazard, colorblob, predefinedSpot;
 
     public map(int[][] map, Position start){
         this.map = map;
         this.start = start;
-        this.nowPos = start;
         hazard = new ArrayList<Position>();
         colorblob = new ArrayList<Position>();
         predefinedSpot = new ArrayList<Position>();
@@ -83,9 +82,5 @@ public class map {
 
     public int[][] getMap() {
         return map;
-    }
-
-    public Position getSIMPosition(){
-        return  nowPos;
     }
 }

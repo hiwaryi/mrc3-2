@@ -2,7 +2,6 @@ package SIM;
 
 public class sim {
     private boolean state;
-    private int xPos, yPos;
     private int nextStep, nowDirection;
     private final int FRONT = 1;
     private final int RIGHT = 2;
@@ -11,9 +10,9 @@ public class sim {
 
     private Sensor sensor;
     private Position position;
-    private Simmap map;
+    private SimMap map;
 
-    public sim(Simmap map){
+    public sim(SimMap map){
         this.map = map;
         position = map.getStart();
         state = false;
@@ -21,11 +20,12 @@ public class sim {
     }
 
     public void moveInterface() {
+//        int xPos, yPos;
         // move
         if(nextStep!=-1) {
             state = true;
-            xPos = position.getX();
-            yPos = position.getY();
+//            xPos = position.getX();
+//            yPos = position.getY();
             nowDirection = position.getDirection();
             switch (nextStep){
                 case 1://move to front
@@ -87,7 +87,7 @@ public class sim {
             cb.setBack(true);
 
         // get Current Position
-        Position pos = map.getSIMPosition();
+        Position pos = map.getRealPos();
 
         Sensor mySensor = new Sensor(hazard, cb, pos);
 
