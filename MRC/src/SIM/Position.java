@@ -31,7 +31,7 @@ public class Position {
 
     public Position front(){
         Position myFront = new Position();
-
+        
         if(direction == FRONT)
             myFront.setPosition(this.x, this.y + 1);
         else if(direction == BACK)

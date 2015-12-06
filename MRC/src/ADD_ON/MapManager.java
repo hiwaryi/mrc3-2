@@ -109,11 +109,15 @@ public class MapManager {
     }
 
     public void updateColorblob(Position colorblob){
-        map.addColorblob(colorblob);
+        int x = colorblob.getX(), y = colorblob.getY();
+        if(0 <= x && x <= mapX && 0 <= y && y <= mapY)
+            map.addColorblob(colorblob);
     }
 
     public void updateHazard(Position hazard){
-        map.addHazard(hazard);
+        int x = hazard.getX(), y = hazard.getY();
+        if(0 <= x && x <= mapX && 0 <= y && y <= mapY)
+            map.addHazard(hazard);
     }
 
     private Position getStartPosition(String start){

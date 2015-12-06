@@ -239,6 +239,7 @@ public class RouteManager {
         }
 
         Position now = new Position(from.getX(), from.getY());
+        now.setDirection(from.getDirection());
         int direction = from.getDirection();
         while(!route.isEmpty()){
             Position next = route.getNext();
