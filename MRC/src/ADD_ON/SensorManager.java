@@ -26,8 +26,6 @@ public class SensorManager {
         sensor = sim.getSensorData();
         pos = sim.getPosition();
 
-        System.out.println(pos.getX() + ", " + pos.getY() + ", " + pos.getDirection());
-
         hazard = sensor.isHazard();
         cb = sensor.getCb();
         mapManager = addonmain.getMapManager();

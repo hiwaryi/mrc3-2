@@ -75,7 +75,7 @@ public class sim {
         int curData = map.getMapdata(position);
 
         // if now is predefined spot, than delete it from list
-        if(curData == 3){ // all predefinedspots will be deleted after the explore
+        if(curData == 3){ // WARNING!! : all predefinedspots will be deleted after the explore
             map.getPredefinedSpot().remove(position);
         }
 

@@ -28,8 +28,10 @@ public class MapForm extends JFrame{
     private JTextArea mapData;
     private JTextArea hiddenHazard;
     private JTextArea textArea;
+    private JTextArea hiddenColorblob;
     private JButton EnterData;
-    private JButton AddData;
+    private JButton hiddenHazardButton;
+    private JButton hiddenColorblobButton;
     private JButton next;
     private JLabel hiddenLabel;
     private JLabel initLabel;
@@ -62,13 +64,22 @@ public class MapForm extends JFrame{
         getContentPane().add(hiddenHazard);
         hiddenHazard.setColumns(10);
 
+        hiddenColorblob = new JTextArea();
+        hiddenColorblob.setBounds(559, 204, 184, 51);
+        getContentPane().add(hiddenColorblob);
+        hiddenColorblob.setColumns(10);
+
         EnterData = new JButton("Enter Data");
         EnterData.setBounds(349, 304, 97, 23);
         getContentPane().add(EnterData);
 
-        AddData = new JButton("Add Data");
-        AddData.setBounds(456, 304, 97, 23);
-        getContentPane().add(AddData);
+        hiddenHazardButton = new JButton("Hidden Hazard");
+        hiddenHazardButton.setBounds(456, 304, 97, 23);
+        getContentPane().add(hiddenHazardButton);
+
+        hiddenColorblobButton = new JButton("Hidden Colorblob");
+        hiddenColorblobButton.setBounds(456, 334, 97, 23);
+        getContentPane().add(hiddenColorblobButton);
 
         next = new JButton("next");
         next.setBounds(563, 304, 97, 23);
@@ -90,7 +101,7 @@ public class MapForm extends JFrame{
             }
         });
 
-        AddData.addActionListener(new ActionListener() {
+        hiddenHazardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String spot = hiddenHazard.getText().toString();
@@ -107,6 +118,27 @@ public class MapForm extends JFrame{
                     y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
                     SIM.Simmap simMap = addonmain.getSimmap();
                     simMap.addHazard(new Position(x, y));
+                }
+            }
+        });
+
+        hiddenColorblobButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String spot = hiddenColorblob.getText().toString();
+                StringTokenizer token;
+                int x, y;
+
+                spot = spot.substring(1, spot.length()-1);
+                token = new StringTokenizer(spot, ")");
+                while(token.hasMoreTokens()){
+                    String temp = token.nextToken();
+                    temp = temp + ")";
+                    int index = temp.indexOf(",");
+                    x = Integer.parseInt(temp.substring(1, index));
+                    y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
+                    SIM.Simmap simMap = addonmain.getSimmap();
+                    simMap.addColorblob(new Position(x, y));
                 }
             }
         });
