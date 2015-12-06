@@ -10,6 +10,7 @@ public class Simmap extends map {
 
     public Simmap(int[][] map, Position start) {
         super(map, start);
+        realPos = start;
     }
 
     public Position getRealPos() {

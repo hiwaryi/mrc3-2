@@ -190,6 +190,8 @@ public class RouteManager {
     }
 
     public void makeRoute(map map){
+        route.clearExe();
+
         Position cur = new Position();
         int w = map.getW(), h = map.getH();
         List<Position> predefinedSpot = map.getPredefinedSpot();

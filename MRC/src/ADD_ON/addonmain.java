@@ -25,10 +25,11 @@ public class addonmain extends JFrame{
 
         simmap = new Simmap(map.getMap(), map.getStart());
         sim = new sim(simmap);
-        sensorManager = new SensorManager(sim);
+        sensorManager = new SensorManager(sim, this);
+    }
 
-//        Integer position = routeManager.orderNextStep();
-//        System.out.println("finish");
+    public MapManager getMapManager() {
+        return mapManager;
     }
 
     public void setMapManager(MapManager mapManager){
@@ -41,6 +42,10 @@ public class addonmain extends JFrame{
 
     public RouteManager getRouteManager() {
         return routeManager;
+    }
+
+    public SensorManager getSensorManager() {
+        return sensorManager;
     }
 
     public SIM.sim getSim() {

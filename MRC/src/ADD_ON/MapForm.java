@@ -2,15 +2,23 @@ package ADD_ON;
 
 
 import SIM.Position;
+import SIM.Sensor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.StringTokenizer;
-
+import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  * Created by kj on 2015-11-29.
@@ -86,8 +94,8 @@ public class MapForm extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String spot = hiddenHazard.getText().toString();
-                StringTokenizer token = new StringTokenizer(spot, ")");
-                int x = 0, y = 0;
+                StringTokenizer token;
+                int x, y;
 
                 spot = spot.substring(1, spot.length()-1);
                 token = new StringTokenizer(spot, ")");
@@ -97,7 +105,8 @@ public class MapForm extends JFrame{
                     int index = temp.indexOf(",");
                     x = Integer.parseInt(temp.substring(1, index));
                     y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    addonmain.getSimmap().addHazard(new Position(x, y));
+                    SIM.Simmap simMap = addonmain.getSimmap();
+                    simMap.addHazard(new Position(x, y));
                 }
             }
         });
@@ -106,12 +115,14 @@ public class MapForm extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 SIM.sim sim = addonmain.getSim();
+                SensorManager sensorManager = addonmain.getSensorManager();
                 RouteManager routeManager = addonmain.getRouteManager();
                 int nextStep = routeManager.orderNextStep();
 
                 if(nextStep != -1) {
                     sim.setNextStep(nextStep);
                     System.out.println("now : " + sim.getPosition().getX() + ", " + sim.getPosition().getY());
+                    sensorManager.determineSensoring();
                 }
                 else
                     System.out.println("finish!");

@@ -31,6 +31,10 @@ public class Route {
         route.clear();
     }
 
+    public void clearExe(){
+        exe.clear();
+    }
+
     public boolean isEmpty(){
         if(route.size() == 0)
             return true;

@@ -14,35 +14,36 @@ public class SensorManager {
     private RouteManager routeManager;
     private SIM.sim sim;
     private MapManager mapManager;
+    private addonmain addonmain;
 
-    public SensorManager(sim sim){
+    public SensorManager(sim sim, addonmain addonmain) {
         this.sim = sim;
         hazard = false;
-        determineSensoring();
+        this.addonmain = addonmain;
     }
 
-    public void determineSensoring(){
+    public void determineSensoring() {
         sensor = sim.getSensorData();
         pos = sensor.getPos();
         hazard = sensor.isHazard();
         cb = sensor.getCb();
+        mapManager = addonmain.getMapManager();
+        routeManager = addonmain.getRouteManager();
 
-        if(hazard == true){
-            mapManager.updateHazard(sensor.getPos().front());
+        if (hazard == true && mapManager.getMap().getMapdata(pos.front()) != 1) {
+            Position front = pos.front();
+            mapManager.updateHazard(front);
             routeManager.makeRoute(mapManager.getMap());
+            System.out.println("Found Hazard!!");
         }
 
-        if(cb.getFront()==true)
+        if (cb.getFront() == true)
             mapManager.updateColorblob(sensor.getPos().front());
-        if(cb.getLeft()==true)
+        if (cb.getLeft() == true)
             mapManager.updateColorblob(sensor.getPos().left());
-        if(cb.getRight()==true)
+        if (cb.getRight() == true)
             mapManager.updateColorblob(sensor.getPos().right());
-        if(cb.getBack()==true)
+        if (cb.getBack() == true)
             mapManager.updateColorblob(sensor.getPos().back());
     }
 }
-		   
-		   
-	
-	

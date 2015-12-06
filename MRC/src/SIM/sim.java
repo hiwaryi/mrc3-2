@@ -30,6 +30,7 @@ public class sim {
             switch (nextStep){
                 case 1://move to front
                     position.setPosition(position.front());
+                    map.setRealPos(position.front());
                     break;
                 case 2://turn right
                     nowDirection = (nowDirection +1)%4;
