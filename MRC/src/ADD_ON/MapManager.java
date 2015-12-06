@@ -1,7 +1,7 @@
 package ADD_ON;
 
 import SIM.Position;
-import SIM.SimMap;
+import SIM.Simmap;
 
 import java.util.StringTokenizer;
 
@@ -17,7 +17,7 @@ public class MapManager {
     public static final int HIDEHAZARD = 4;
 
     private map map;
-    private SimMap simMap;
+    private Simmap simmap;
     private Position startPosition;
     public int[][] tempMap;
     public int mapX, mapY;

@@ -22,6 +22,7 @@ public class MapForm extends JFrame{
     private JTextArea textArea;
     private JButton EnterData;
     private JButton AddData;
+    private JButton next;
     private JLabel hiddenLabel;
     private JLabel initLabel;
     private addonmain addonmain;
@@ -61,6 +62,10 @@ public class MapForm extends JFrame{
         AddData.setBounds(456, 304, 97, 23);
         getContentPane().add(AddData);
 
+        next = new JButton("next");
+        next.setBounds(563, 304, 97, 23);
+        getContentPane().add(next);
+
         setVisible(true);
 
         this.addonmain = addonmain;
@@ -92,8 +97,24 @@ public class MapForm extends JFrame{
                     int index = temp.indexOf(",");
                     x = Integer.parseInt(temp.substring(1, index));
                     y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    addonmain.getSimMap().addHazard(new Position(x, y));
+                    addonmain.getSimmap().addHazard(new Position(x, y));
                 }
+            }
+        });
+
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SIM.sim sim = addonmain.getSim();
+                RouteManager routeManager = addonmain.getRouteManager();
+                int nextStep = routeManager.orderNextStep();
+
+                if(nextStep != -1) {
+                    sim.setNextStep(nextStep);
+                    System.out.println("now : " + sim.getPosition().getX() + ", " + sim.getPosition().getY());
+                }
+                else
+                    System.out.println("finish!");
             }
         });
     }

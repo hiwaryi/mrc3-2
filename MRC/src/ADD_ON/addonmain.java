@@ -1,6 +1,6 @@
 package ADD_ON;
 
-import SIM.SimMap;
+import SIM.Simmap;
 import SIM.sim;
 
 import javax.swing.JFrame;
@@ -10,7 +10,7 @@ public class addonmain extends JFrame{
     private MapForm mapForm;
     private map map;
     private RouteManager routeManager;
-    private SimMap simMap;
+    private Simmap simmap;
     private sim sim;
     private SensorManager sensorManager;
 
@@ -23,20 +23,28 @@ public class addonmain extends JFrame{
         routeManager = new RouteManager();
         routeManager.makeRoute(map);
 
-        simMap = new SimMap(map.getMap(), map.getStart());
-        sim = new sim(simMap);
+        simmap = new Simmap(map.getMap(), map.getStart());
+        sim = new sim(simmap);
         sensorManager = new SensorManager(sim);
 
-        Integer position = routeManager.orderNextStep();
-        System.out.println("finish");
+//        Integer position = routeManager.orderNextStep();
+//        System.out.println("finish");
     }
 
     public void setMapManager(MapManager mapManager){
         this.mapManager = mapManager;
     }
 
-    public SimMap getSimMap() {
-        return simMap;
+    public Simmap getSimmap() {
+        return simmap;
+    }
+
+    public RouteManager getRouteManager() {
+        return routeManager;
+    }
+
+    public SIM.sim getSim() {
+        return sim;
     }
 
     public static void main(String[] args) {

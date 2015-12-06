@@ -10,9 +10,9 @@ public class sim {
 
     private Sensor sensor;
     private Position position;
-    private SimMap map;
+    private Simmap map;
 
-    public sim(SimMap map){
+    public sim(Simmap map){
         this.map = map;
         position = map.getStart();
         state = false;
