@@ -73,6 +73,7 @@ public class RouteManager {
     private Position expectedPosition;
     private Route route;
     private map map;
+    private List<Position> predefinedSpot;
 
     public RouteManager() {
         this.expectedPosition = new Position();
@@ -88,7 +89,7 @@ public class RouteManager {
     }
 
     // composite a* algorithm
-    private void a_star(Position from, Position to){
+    private Position a_star(Position from, Position to){
         Position cur = from;
         int w = map.getW(), h = map.getH();
         Astar[][] astar  = new Astar[h][w];
@@ -122,8 +123,18 @@ public class RouteManager {
             int pivot = openList.size();
 
             // if reached destination, break the while
-            if(mapArray[y][x] == 3 && (x != from.getX() || y != from.getY()))
-                break;
+            if(mapArray[y][x] == 3 && (x != from.getX() || y != from.getY())) {
+                if(x != to.getX() || y != to.getY()) {
+                    for(Position pos : predefinedSpot){
+                        if(x == pos.getX() || y == pos.getY()) {
+                            predefinedSpot.remove(pos);
+                            break;
+                        }
+                    }
+                }
+                else
+                    break;
+            }
 
             // add surrounding blocks into openList
             for(int i = 0; i < 4; i++){
@@ -183,10 +194,11 @@ public class RouteManager {
         }
 
         // reverse the path
-        for(int i = path.size() - 2; i >= 0; i--) {
+        for(int i = path.size() - 2; i >= 0; i--)
             route.addRoute(path.get(i));
-//            System.out.println(path.get(i).getX() + ", " + path.get(i).getY());
-        }
+
+        predefinedSpot.remove(to);
+        return to;
     }
 
     public void makeRoute(map map, Position from){
@@ -194,7 +206,7 @@ public class RouteManager {
 
         Position cur = new Position(from.getX(), from.getY());
         int w = map.getW(), h = map.getH();
-        List<Position> predefinedSpot = new ArrayList<>();
+        predefinedSpot = new ArrayList<>();
 
         for(Position pos : map.getPredefinedSpot()){
             predefinedSpot.add(new Position(pos.getX(), pos.getY()));
@@ -206,7 +218,7 @@ public class RouteManager {
         this.map = map;
 
         int repeat = predefinedSpot.size();
-        while(repeat-- > 0){
+        while(repeat > 0){
             int min = Integer.MAX_VALUE; // min distance from current position
             int next_index = -1; // index of min distance spot
 
@@ -221,8 +233,9 @@ public class RouteManager {
                 }
             }
 
-            a_star(cur, predefinedSpot.get(next_index)); // get route
-            cur = predefinedSpot.remove(next_index); // make min distance spot to current position
+            cur = a_star(cur, predefinedSpot.get(next_index)); // get route
+            repeat = predefinedSpot.size();
+//            cur = predefinedSpot.remove(next_index); // make min distance spot to current position
         }
 
         Position now = new Position(from.getX(), from.getY());
