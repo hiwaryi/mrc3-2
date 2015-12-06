@@ -83,4 +83,11 @@ public class map {
     public int[][] getMap() {
         return map;
     }
+
+    public void setPosNow(int x, int y){
+        map[y][x] = 5;
+    }
+    public void setPosEx(int x, int y){
+        map[y][x] = 0;
+    }
 }

@@ -30,31 +30,35 @@ public class sim {
             nowDirection = position.getDirection();
             switch (nextStep) {
                 case 1://move to front
-                    int r = random.nextInt(100);   //ê¹€ë‚˜ë¼ê°€ ì‘ì„±     ì‘ì„±í•œ ë¶€ë¶„ ëœë¤ìœ¼ë¡œ ì˜¤ì‘ë™ ì¼ìœ¼í‚´
+                    /*
+                    int r = random.nextInt(100);   //ê¹??‚˜?¼ê°? ?‘?„±     ?‘?„±?•œ ë¶?ë¶? ?œ?¤?œ¼ë¡? ?˜¤?‘?™ ?¼?œ¼?‚´
                     if(r<30 && r>=20){
                         position.setPosition(position.front());
-                        sensor = getSensorData();   //ì‹¬ì´ ì›€ì§ì´ê¸°ì „ ë””í…íŒ…
+                        sensor = getSensorData();   //?‹¬?´ ??ì§ì´ê¸°ì „ ?””?…?Œ…
                         if(sensor.isHazard()==true){
-                            System.out.print("Simì´ 2ì¹¸ì„ ê°€ë ¤í–ˆì§€ë§Œ ì•ì— hazardê°€ ë°œê²¬ë˜ì–´ 1ì¹¸ë§Œ ê°");
+                            System.out.print("Sim?´ 2ì¹¸ì„ ê°?? ¤?–ˆì§?ë§? ?•?— hazardê°? ë°œê²¬?˜?–´ 1ì¹¸ë§Œ ê°?");
                             map.setRealPos(position);
                         }
                         else{
-                            System.out.println("Simì´ ì˜¤ì‘ë™ì„ í•´ 2ì¹¸ì„ ê°");
+                            System.out.println("Sim?´ ?˜¤?‘?™?„ ?•´ 2ì¹¸ì„ ê°?");
                             Position tmp = new Position(position.front().getX(), position.front().getY());
                             tmp.setDirection(position.getDirection());
-                            map.setRealPos(tmp); // ìœ„ì—ì„œ í•œì¹¸ê°€ê³  ì—¬ê¸°ì„œ í•œì¹¸ ê°”ìœ¼ë‹ˆ ë‘ì¹¸ ê°„ ê°’ì´ ì ìš©
+                            map.setRealPos(tmp); // ?œ„?—?„œ ?•œì¹¸ê?ê³? ?—¬ê¸°ì„œ ?•œì¹? ê°”ìœ¼?‹ˆ ?‘ì¹? ê°? ê°’ì´ ? ?š©
                         }
                     }
                     else if(r < 20){
-                        System.out.println("Simì´ ì˜¤ì‘ë™ì„ í•´ ì›€ì§ì´ì§€ ì•ŠìŒ");
+                        System.out.println("Sim?´ ?˜¤?‘?™?„ ?•´ ??ì§ì´ì§? ?•Š?Œ");
                         map.setRealPos(new Position(position.getX(), position.getY()));
                         position.setPosition(position.front());
 
                     }
+
                     else {
                         position.setPosition(position.front());
                         map.setRealPos(position);
-                    }
+                    }*/
+                    position.setPosition(position.front());
+                    map.setRealPos(position);
                     break;
                 case 2://turn right
                     nowDirection = (nowDirection + 1) % 4;

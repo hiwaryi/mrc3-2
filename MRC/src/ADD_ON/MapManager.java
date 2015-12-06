@@ -2,6 +2,7 @@ package ADD_ON;
 
 import SIM.Position;
 import SIM.Simmap;
+import javafx.geometry.Pos;
 
 import java.util.StringTokenizer;
 
@@ -22,6 +23,8 @@ public class MapManager {
     public int[][] tempMap;
     public int mapX, mapY;
     private StringTokenizer token;
+    private Position mapSize;
+    private MapForm mapForm;
 
     MapManager(String mapData){
         System.out.println(mapData);
@@ -57,6 +60,8 @@ public class MapManager {
         int index = size.indexOf(",");
         mapX = Integer.parseInt(size.substring(1, index));
         mapY = Integer.parseInt(size.substring(index+1, size.length()-1));
+        mapSize = new Position(mapX, mapY);
+
         tempMap = new int[mapY+1][mapX+1];
         for(int i=0; i<=mapY; i++){
             for(int j=0; j<=mapX; j++) {
@@ -128,19 +133,11 @@ public class MapManager {
         return startPosition;
     }
 
-    public void printMap(){
-        System.out.println("print map("+this.mapX+","+this.mapY+")");
-
-        for(int i=mapY; i>=0; i--){
-            for(int j=mapX; j>=0; j--){
-                System.out.print(tempMap[i][j]);
-                System.out.print(", ");
-            }
-            System.out.println();
-        }
-    }
-
     public map getMap(){
         return map;
+    }
+
+    public Position getMapSize(){
+        return mapSize;
     }
 }
