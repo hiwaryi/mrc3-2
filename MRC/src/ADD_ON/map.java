@@ -75,7 +75,7 @@ public class map {
         int y = Pos.getY();
 
         if(0 <= x && x < w && 0 <= y && y < h)
-            return map[x][y];
+            return map[y][x];
         else
             return -1;
     }

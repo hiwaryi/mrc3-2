@@ -72,6 +72,12 @@ public class sim {
         int leftData = map.getMapdata(position.left());
         int rightData = map.getMapdata(position.right());
         int backData = map.getMapdata(position.back());
+        int curData = map.getMapdata(position);
+
+        // if now is predefined spot, than delete it from list
+        if(curData == 3){ // all predefinedspots will be deleted after the explore
+            map.getPredefinedSpot().remove(position);
+        }
 
         // determine hazard
         if(frontData == 1)
@@ -88,9 +94,9 @@ public class sim {
             cb.setBack(true);
 
         // get Current Position
-        Position pos = map.getRealPos();
+//        Position pos = map.getRealPos();
 
-        Sensor mySensor = new Sensor(hazard, cb, pos);
+        Sensor mySensor = new Sensor(hazard, cb, position);
 
         return mySensor;
     }

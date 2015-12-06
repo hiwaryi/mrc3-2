@@ -189,12 +189,17 @@ public class RouteManager {
         }
     }
 
-    public void makeRoute(map map){
+    public void makeRoute(map map, Position from){
         route.clearExe();
 
-        Position cur = new Position();
+        Position cur = new Position(from.getX(), from.getY());
         int w = map.getW(), h = map.getH();
-        List<Position> predefinedSpot = map.getPredefinedSpot();
+        List<Position> predefinedSpot = new ArrayList<>();
+
+        for(Position pos : map.getPredefinedSpot()){
+            predefinedSpot.add(new Position(pos.getX(), pos.getY()));
+        }
+
         boolean[] check = new boolean[map.getPredefinedSpot().size()];
         for(int i = 0; i < map.getPredefinedSpot().size(); i++)
             check[i] = false;
@@ -220,8 +225,8 @@ public class RouteManager {
             cur = predefinedSpot.remove(next_index); // make min distance spot to current position
         }
 
-        Position now = map.getStart();
-        int direction = 1;
+        Position now = new Position(from.getX(), from.getY());
+        int direction = from.getDirection();
         while(!route.isEmpty()){
             Position next = route.getNext();
             next.setDirection(direction);

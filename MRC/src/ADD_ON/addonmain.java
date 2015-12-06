@@ -1,5 +1,6 @@
 package ADD_ON;
 
+import SIM.Position;
 import SIM.Simmap;
 import SIM.sim;
 
@@ -21,9 +22,16 @@ public class addonmain extends JFrame{
     public void yay(){
         map = mapManager.getMap();
         routeManager = new RouteManager();
-        routeManager.makeRoute(map);
+        routeManager.makeRoute(map, map.getStart());
 
-        simmap = new Simmap(map.getMap(), map.getStart());
+        int y = map.getMap().length, x = map.getMap()[0].length;
+        int[][] newMap = new int[y][x];
+        for(int i = 0; i < y; i++){
+            for(int j = 0; j < x; j++)
+                newMap[i][j] = map.getMapdata(new Position(j, i));
+        }
+
+        simmap = new Simmap(newMap, map.getStart());
         sim = new sim(simmap);
         sensorManager = new SensorManager(sim, this);
     }

@@ -24,7 +24,10 @@ public class SensorManager {
 
     public void determineSensoring() {
         sensor = sim.getSensorData();
-        pos = sensor.getPos();
+        pos = sim.getPosition();
+
+        System.out.println(pos.getX() + ", " + pos.getY() + ", " + pos.getDirection());
+
         hazard = sensor.isHazard();
         cb = sensor.getCb();
         mapManager = addonmain.getMapManager();
@@ -33,7 +36,7 @@ public class SensorManager {
         if (hazard == true && mapManager.getMap().getMapdata(pos.front()) != 1) {
             Position front = pos.front();
             mapManager.updateHazard(front);
-            routeManager.makeRoute(mapManager.getMap());
+            routeManager.makeRoute(mapManager.getMap(), pos);
             System.out.println("Found Hazard!!");
         }
 
