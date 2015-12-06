@@ -44,10 +44,10 @@ public class MapManager {
                 case 2:
                     parseMapData(HAZARD, temp[i]);
                     break;
+//                case 3:
+//                    parseMapData(COLORBLOB, temp[i]);
+//                    break;
                 case 3:
-                    parseMapData(COLORBLOB, temp[i]);
-                    break;
-                case 4:
                     parseMapData(PREDEFINED, temp[i]);
                     break;
                 default:
@@ -84,18 +84,18 @@ public class MapManager {
                     map.addHazard(new Position(x, y));
                 }
                 break;
-            case COLORBLOB:
-                spot = spot.substring(1, spot.length()-1);
-                token = new StringTokenizer(spot, ")");
-                while(token.hasMoreTokens()){
-                    String temp = token.nextToken();
-                    temp = temp + ")";
-                    int index = temp.indexOf(",");
-                    int x = Integer.parseInt(temp.substring(1, index));
-                    int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    map.addColorblob(new Position(x, y));
-                }
-                break;
+//            case COLORBLOB:
+//                spot = spot.substring(1, spot.length()-1);
+//                token = new StringTokenizer(spot, ")");
+//                while(token.hasMoreTokens()){
+//                    String temp = token.nextToken();
+//                    temp = temp + ")";
+//                    int index = temp.indexOf(",");
+//                    int x = Integer.parseInt(temp.substring(1, index));
+//                    int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
+//                    map.addColorblob(new Position(x, y));
+//                }
+//                break;
             case PREDEFINED:
                 spot = spot.substring(1, spot.length()-1);
                 token = new StringTokenizer(spot, ")");
