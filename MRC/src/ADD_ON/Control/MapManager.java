@@ -1,8 +1,9 @@
-package ADD_ON;
+package ADD_ON.Control;
 
+import ADD_ON.Data.map;
+import ADD_ON.Interface.MapForm;
 import SIM.Position;
 import SIM.Simmap;
-import javafx.geometry.Pos;
 
 import java.util.StringTokenizer;
 
@@ -17,7 +18,7 @@ public class MapManager {
     public static final int PREDEFINED = 3;
     public static final int HIDEHAZARD = 4;
 
-    private map map;
+    private ADD_ON.Data.map map;
     private Simmap simmap;
     private Position startPosition;
     public int[][] tempMap;
@@ -26,7 +27,7 @@ public class MapManager {
     private Position mapSize;
     private MapForm mapForm;
 
-    MapManager(String mapData){
+    public MapManager(String mapData){
         System.out.println(mapData);
         initMap(mapData);
     }

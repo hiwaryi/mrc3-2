@@ -1,25 +1,19 @@
-package ADD_ON;
+package ADD_ON.Interface;
 
 
+import ADD_ON.Control.MapManager;
+import ADD_ON.Control.RouteManager;
+import ADD_ON.Control.SensorManager;
+import ADD_ON.addonmain;
 import SIM.Position;
-import SIM.Sensor;
-import javafx.geometry.Pos;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javax.swing.*;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * Created by kj on 2015-11-29.
@@ -35,11 +29,11 @@ public class MapForm extends JFrame{
     private JButton next;
     private JLabel hiddenLabel;
     private JLabel initLabel;
-    private addonmain addonmain;
+    private ADD_ON.addonmain addonmain;
     private JScrollPane jscrollpane;
     private JTable jtable;
     private TableColumn column;
-    private map map;
+    private ADD_ON.Data.map map;
     private Position position;
 
     public MapForm(addonmain addonmain) {

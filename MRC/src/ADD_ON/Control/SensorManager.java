@@ -1,4 +1,5 @@
-package ADD_ON;
+package ADD_ON.Control;
+import ADD_ON.addonmain;
 import SIM.*;
 ;
 
@@ -12,7 +13,7 @@ public class SensorManager {
     private RouteManager routeManager;
     private SIM.sim sim;
     private MapManager mapManager;
-    private addonmain addonmain;
+    private ADD_ON.addonmain addonmain;
 
     public SensorManager(sim sim, addonmain addonmain) {
         this.sim = sim;
