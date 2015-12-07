@@ -156,7 +156,7 @@ public class MapForm extends JFrame{
                 SIM.sim sim = addonmain.getSim();
                 SensorManager sensorManager = addonmain.getSensorManager();
                 RouteManager routeManager = addonmain.getRouteManager();
-                int nextStep = routeManager.orderNextStep();
+                int nextStep = routeManager.getNextStep();
 
                 if(nextStep != -1) {
                     map.setPosEx(sim.getPosition().getX(), sim.getPosition().getY());

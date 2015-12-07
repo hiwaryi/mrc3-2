@@ -72,22 +72,12 @@ class Astar { // blocks for astar
 }
 
 public class RouteManager {
-    private Position expectedPosition;
     private Route route;
     private ADD_ON.Data.map map;
     private List<Position> predefinedSpot;
 
     public RouteManager() {
-        this.expectedPosition = new Position();
         this.route = new Route();
-    }
-
-    public Position getExpectedPosition() {
-        return expectedPosition;
-    }
-
-    public void setExpectedPosition(Position expectedPosition) {
-        this.expectedPosition = expectedPosition;
     }
 
     // composite a* algorithm
@@ -207,7 +197,6 @@ public class RouteManager {
         route.clearExe();
 
         Position cur = new Position(from.getX(), from.getY());
-        int w = map.getW(), h = map.getH();
         predefinedSpot = new ArrayList<>();
 
         for(Position pos : map.getPredefinedSpot()){
@@ -237,7 +226,6 @@ public class RouteManager {
 
             cur = a_star(cur, predefinedSpot.get(next_index)); // get route
             repeat = predefinedSpot.size();
-//            cur = predefinedSpot.remove(next_index); // make min distance spot to current position
         }
 
         Position now = new Position(from.getX(), from.getY());
@@ -272,7 +260,7 @@ public class RouteManager {
 
     }
 
-    public Integer orderNextStep(){
+    public Integer getNextStep(){
         return route.getExe();
     }
 }
