@@ -11,11 +11,11 @@ public class sim {
 
     private Sensor sensor;
     private Position position;
-    private Simmap map;
+    private SimMap SIMMap;
     private int w, h;
 
-    public sim(Simmap map){
-        this.map = map;
+    public sim(SimMap map){
+        this.SIMMap = map;
         position = map.getStart();
         nextStep = -1;
         w = map.getW();
@@ -29,30 +29,30 @@ public class sim {
             nowDirection = position.getDirection();
             switch (nextStep) {
                 case 1://move to front
-                    int x = map.getRealPos().getX(), y = map.getRealPos().getY();
+                    int x = SIMMap.getRealPos().getX(), y = SIMMap.getRealPos().getY();
                     int r = random.nextInt(100);   // random number to raise SIM's malfunctioning
                     if(r<30 && r>=20 && 0 <= x - 2 && x + 2 <= w && 0 <= y - 2 && y + 2 <= h){
                         position.setPosition(position.front());
                         sensor = getSensorData();   // sensing before move twice to not get bombed
                         if(sensor.isHazard()==true){
                             System.out.print("SIM malfunctioned! (tried to move twice, but there is hazard spot)");
-                            map.setRealPos(position);
+                            SIMMap.setRealPos(position);
                         }
                         else{
                             System.out.println("SIM malfunctioned! (moved twice)");
                             Position tmp = new Position(position.front().getX(), position.front().getY());
                             tmp.setDirection(position.getDirection());
-                            map.setRealPos(tmp); // set real pos
+                            SIMMap.setRealPos(tmp); // set real pos
                         }
                     }
                     else if(r < 20){
                         System.out.println("SIM malfunctioned! (didn't move)");
-                        map.setRealPos(new Position(position.getX(), position.getY()));
+                        SIMMap.setRealPos(new Position(position.getX(), position.getY()));
                         position.setPosition(position.front());
                     }
                     else {
                         position.setPosition(position.front());
-                        map.setRealPos(position);
+                        SIMMap.setRealPos(position);
                     }
                     break;
                 case 2://turn right
@@ -85,10 +85,10 @@ public class sim {
         boolean hazard = false;
         Colorblob cb = new Colorblob();
 
-        int frontData = map.getMapValueAt(position.front());
-        int leftData = map.getMapValueAt(position.left());
-        int rightData = map.getMapValueAt(position.right());
-        int backData = map.getMapValueAt(position.back());
+        int frontData = SIMMap.getMapValueAt(position.front());
+        int leftData = SIMMap.getMapValueAt(position.left());
+        int rightData = SIMMap.getMapValueAt(position.right());
+        int backData = SIMMap.getMapValueAt(position.back());
 
         // determine hazard
         if(frontData == 1)

@@ -123,7 +123,7 @@ public class MapForm extends JFrame{
                     int index = temp.indexOf(",");
                     x = Integer.parseInt(temp.substring(1, index));
                     y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    SIM.Simmap simMap = addonmain.getSimmap();
+                    SIM.SimMap simMap = addonmain.getSimmap();
                     simMap.addHazard(new Position(x, y));
                 }
             }
@@ -144,7 +144,7 @@ public class MapForm extends JFrame{
                     int index = temp.indexOf(",");
                     x = Integer.parseInt(temp.substring(1, index));
                     y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    SIM.Simmap simMap = addonmain.getSimmap();
+                    SIM.SimMap simMap = addonmain.getSimmap();
                     simMap.addColorblob(new Position(x, y));
                 }
             }

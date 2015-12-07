@@ -16,13 +16,6 @@ public class Colorblob {
         this.right = false;
     }
 
-    public Colorblob(boolean front, boolean back, boolean left, boolean right){
-        this.front = front;
-        this.back = back;
-        this.left = left;
-        this.right = right;
-    }
-
     public boolean getFront(){
         return this.front;
     }

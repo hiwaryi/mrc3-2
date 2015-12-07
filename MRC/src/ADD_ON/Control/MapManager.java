@@ -2,7 +2,7 @@ package ADD_ON.Control;
 
 import ADD_ON.Data.Map;
 import SIM.Position;
-import SIM.Simmap;
+import SIM.SimMap;
 
 import java.util.StringTokenizer;
 
@@ -13,12 +13,9 @@ public class MapManager {
 
     public static final int EMPTY = 0;
     public static final int HAZARD = 1;
-    public static final int COLORBLOB = 2;
     public static final int PREDEFINED = 3;
-    public static final int HIDEHAZARD = 4;
 
     private Map map;
-    private Simmap simmap;
     private Position startPosition;
     public int[][] tempMap;
     public int mapX, mapY;

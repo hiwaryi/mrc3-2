@@ -5,13 +5,6 @@ public class Sensor {
     private Colorblob cb;
     private Position pos;
 
-
-    public Sensor() {
-        this.hazard = false;
-        this.cb = new Colorblob();
-        this.pos = new Position(0, 0);
-    }
-
     public Sensor(boolean hazard, Colorblob cb, Position pos) {
         this.hazard = hazard;
         this.cb = cb;

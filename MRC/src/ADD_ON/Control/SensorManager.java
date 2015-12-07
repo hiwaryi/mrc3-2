@@ -1,9 +1,6 @@
 package ADD_ON.Control;
-import ADD_ON.Control.MapManager;
-import ADD_ON.Control.RouteManager;
 import ADD_ON.addonmain;
 import SIM.*;
-;
 
 
 public class SensorManager {
@@ -28,7 +25,7 @@ public class SensorManager {
         routeManager = addonmain.getRouteManager();
         pos = sim.getPosition();
 
-        Simmap simmap = addonmain.getSimmap();
+        SimMap simmap = addonmain.getSimmap();
         if(pos != simmap.getRealPos() ){   //김나라가 추가 현재 위치가  심의 현재 위치와 다르면 다시 루트 짜줌
             pos.setPosition(simmap.getRealPos());
             if(mapManager.getMap().getMapValueAt(pos) == 3)
