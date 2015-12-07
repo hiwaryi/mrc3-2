@@ -3,20 +3,15 @@ package ADD_ON.Data;
 import SIM.Position;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class Route {
     private Queue<Position> route;
-    private Queue<Integer> exe;
+    private Queue<Integer> step;
 
     public Route() {
-        this.route = new LinkedList<Position>();
-        this.exe = new LinkedList<Integer>();
-    }
-
-    public Queue<Position> getRoute() {
-        return route;
+        this.route = new LinkedList<>();
+        this.step = new LinkedList<>();
     }
 
     public void addRoute(Position route) {
@@ -27,12 +22,8 @@ public class Route {
         return this.route.poll();
     }
 
-    public void clearRoute(){
-        route.clear();
-    }
-
-    public void clearExe(){
-        exe.clear();
+    public void clearSteps(){
+        step.clear();
     }
 
     public boolean isEmpty(){
@@ -42,12 +33,12 @@ public class Route {
             return false;
     }
 
-    public void addExe(int exe) {
-        this.exe.add(exe);
+    public void addStep(int exe) {
+        this.step.add(exe);
     }
 
-    public Integer getExe(){
-        Integer returnVal = this.exe.poll();
+    public Integer getStep(){
+        Integer returnVal = this.step.poll();
         if(returnVal != null)
             return returnVal;
         else

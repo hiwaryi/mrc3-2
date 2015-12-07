@@ -17,7 +17,7 @@ public class sim {
 
     public sim(Simmap map){
         this.map = map;
-        position = map.getStart();
+        position = map.getStartPosition();
         state = false;
         nextStep = -1;
         w = map.getW();
@@ -89,10 +89,10 @@ public class sim {
         boolean hazard = false;
         Colorblob cb = new Colorblob();
 
-        int frontData = map.getMapdata(position.front());
-        int leftData = map.getMapdata(position.left());
-        int rightData = map.getMapdata(position.right());
-        int backData = map.getMapdata(position.back());
+        int frontData = map.getMapValueAt(position.front());
+        int leftData = map.getMapValueAt(position.left());
+        int rightData = map.getMapValueAt(position.right());
+        int backData = map.getMapValueAt(position.back());
 
         // determine hazard
         if(frontData == 1)
@@ -109,7 +109,7 @@ public class sim {
             cb.setBack(true);
 
         // get Current Position
-//        Position pos = map.getRealPos();
+//        Position pos = Map.getRealPos();
 
         Sensor mySensor = new Sensor(hazard, cb, position);
 
