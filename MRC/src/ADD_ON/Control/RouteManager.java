@@ -1,5 +1,7 @@
-package ADD_ON;
+package ADD_ON.Control;
 
+import ADD_ON.Data.Route;
+import ADD_ON.Data.map;
 import SIM.*;
 
 import java.util.ArrayList;
@@ -72,7 +74,7 @@ class Astar { // blocks for astar
 public class RouteManager {
     private Position expectedPosition;
     private Route route;
-    private map map;
+    private ADD_ON.Data.map map;
     private List<Position> predefinedSpot;
 
     public RouteManager() {

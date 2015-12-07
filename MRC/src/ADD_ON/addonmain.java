@@ -1,5 +1,9 @@
 package ADD_ON;
 
+import ADD_ON.Control.MapManager;
+import ADD_ON.Control.RouteManager;
+import ADD_ON.Control.SensorManager;
+import ADD_ON.Interface.MapForm;
 import SIM.Position;
 import SIM.Simmap;
 import SIM.sim;
@@ -9,7 +13,7 @@ import javax.swing.JFrame;
 public class addonmain extends JFrame{
     private MapManager mapManager;
     private MapForm mapForm;
-    private map map;
+    private ADD_ON.Data.map map;
     private RouteManager routeManager;
     private Simmap simmap;
     private sim sim;

@@ -1,6 +1,6 @@
 package SIM;
 
-import ADD_ON.map;
+import ADD_ON.Data.map;
 
 /**
  * Created by kj on 2015-12-01.
