@@ -1,50 +1,50 @@
 package ADD_ON.Control;
 import ADD_ON.addonmain;
 import SIM.*;
-;
 
 
 public class SensorManager {
-
     private boolean hazard;
     private Colorblob cb;
-    private Position pos;
+    private Position simPosition;
     private Sensor sensor;
-    private RouteManager routeManager;
-    private SIM.sim sim;
-    private MapManager mapManager;
-    private ADD_ON.addonmain addonmain;
 
-    public SensorManager(sim sim, addonmain addonmain) {
-        this.sim = sim;
+    private RouteManager routeManager;
+    private MapManager mapManager;
+
+    private SIM.sim SIM;
+    private addonmain addonmain;
+
+    public SensorManager(sim SIM, addonmain addonmain) {
+        this.SIM = SIM;
         hazard = false;
         this.addonmain = addonmain;
     }
 
-    public void determineSensoring() {
+    public void determineSensorData() {
         mapManager = addonmain.getMapManager();
         routeManager = addonmain.getRouteManager();
-        pos = sim.getPosition();
+        simPosition = SIM.getPosition();
 
         Simmap simmap = addonmain.getSimmap();
-        if(pos != simmap.getRealPos() ){   //김나라가 추가 현재 위치가  심의 현재 위치와 다르면 다시 루트 짜줌
-            pos.setPosition(simmap.getRealPos());
-            if(mapManager.getMap().getMapdata(pos) == 3)
-                mapManager.getMap().getPredefinedSpot().remove(pos);
-            routeManager.makeRoute(mapManager.getMap(), pos);
+        if(simPosition != simmap.getRealPos() ){   //김나라가 추가 현재 위치가  심의 현재 위치와 다르면 다시 루트 짜줌
+            simPosition.setPosition(simmap.getRealPos());
+            if(mapManager.getMap().getMapdata(simPosition) == 3)
+                mapManager.getMap().getPredefinedSpot().remove(simPosition);
+            routeManager.makeRoute(mapManager.getMap(), simPosition);
         }
 
-        sensor = sim.getSensorData();
+        sensor = SIM.getSensorData();
         hazard = sensor.isHazard();
         cb = sensor.getCb();
 
-        if(mapManager.getMap().getMapdata(pos) == 3)
-            mapManager.getMap().getPredefinedSpot().remove(pos);
+        if(mapManager.getMap().getMapdata(simPosition) == 3)
+            mapManager.getMap().getPredefinedSpot().remove(simPosition);
 
-        if (hazard == true && mapManager.getMap().getMapdata(pos.front()) != 1) {
-            Position front = pos.front();
+        if (hazard == true && mapManager.getMap().getMapdata(simPosition.front()) != 1) {
+            Position front = simPosition.front();
             mapManager.updateHazard(front);
-            routeManager.makeRoute(mapManager.getMap(), pos);
+            routeManager.makeRoute(mapManager.getMap(), simPosition);
             System.out.println("Found Hazard!!");
         }
 

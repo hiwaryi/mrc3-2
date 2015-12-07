@@ -162,7 +162,7 @@ public class MapForm extends JFrame{
                     map.setPosEx(sim.getPosition().getX(), sim.getPosition().getY());
                     sim.setNextStep(nextStep);
                     System.out.println("now : " + sim.getPosition().getX() + ", " + sim.getPosition().getY());
-                    sensorManager.determineSensoring();
+                    sensorManager.determineSensorData();
                     map.setPosNow(sim.getPosition().getX(), sim.getPosition().getY());
                 }
                 else
