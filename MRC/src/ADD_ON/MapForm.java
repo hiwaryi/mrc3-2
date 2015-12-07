@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javax.swing.*;
@@ -167,8 +168,8 @@ public class MapForm extends JFrame{
                     map.setPosEx(sim.getPosition().getX(), sim.getPosition().getY());
                     sim.setNextStep(nextStep);
                     System.out.println("now : " + sim.getPosition().getX() + ", " + sim.getPosition().getY());
-                    map.setPosNow(sim.getPosition().getX(), sim.getPosition().getY());
                     sensorManager.determineSensoring();
+                    map.setPosNow(sim.getPosition().getX(), sim.getPosition().getY());
                 }
                 else
                     System.out.println("finish!");
@@ -182,6 +183,7 @@ public class MapForm extends JFrame{
         int interval;
         int[][] tempMap = map.getMap();
         Position pos = map.getStart();
+        map.setPosNow(pos.getX(), pos.getY());
         jscrollpane = new JScrollPane();
         jscrollpane.setBounds(12, 6, 320, 320);
 
@@ -191,18 +193,43 @@ public class MapForm extends JFrame{
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component c = super.prepareRenderer(renderer, row, column);
-                if(tempMap[row][column]==1)
-                    c.setBackground(Color.RED);
-                else if(tempMap[row][column]==2)
-                    c.setBackground(Color.GREEN);
-                else if(tempMap[row][column]==3)
-                    c.setBackground(Color.BLUE);
-                else if(tempMap[row][column]==5)
-                    c.setBackground(Color.CYAN);
-                else
-                    c.setBackground(Color.white);
+                JLabel label = new JLabel();
 
-                return c;
+                if(tempMap[row][column]==1) {
+                    label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/hazard.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                    return label;
+                }
+                else if(tempMap[row][column]==2) {
+                    label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/colorblob.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                    return label;
+                }
+                else if(tempMap[row][column]==3) {
+                    label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/spot.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                    return label;
+                }
+                else if(tempMap[row][column]>=5) {
+                    switch(addonmain.getSim().getPosition().getDirection()){
+                        case 1 :
+                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/back.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            break;
+                        case 2 :
+                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/right.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            break;
+                        case 3 :
+                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/front.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            break;
+                        case 4 :
+                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/left.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            break;
+                        default :
+                            break;
+                    }
+                    return label;
+                }
+                else {
+                    c.setBackground(Color.white);
+                    return c;
+                }
             }
         };
         jtable.setFillsViewportHeight(true);
@@ -210,6 +237,7 @@ public class MapForm extends JFrame{
         jtable.setCellSelectionEnabled(true);
         jtable.setTableHeader(null);
         jtable.setAutoResizeMode(jtable.AUTO_RESIZE_OFF);
+
 
         if(size.getY()<19){
             jtable.setRowHeight(320/size.getY());

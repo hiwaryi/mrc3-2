@@ -85,9 +85,9 @@ public class map {
     }
 
     public void setPosNow(int x, int y){
-        map[y][x] = 5;
+        map[y][x] += 5;
     }
     public void setPosEx(int x, int y){
-        map[y][x] = 0;
+        map[y][x] -= 5;
     }
 }

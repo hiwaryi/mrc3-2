@@ -13,60 +13,53 @@ public class sim {
     private Sensor sensor;
     private Position position;
     private Simmap map;
+    private int w, h;
 
     public sim(Simmap map){
         this.map = map;
         position = map.getStart();
         state = false;
         nextStep = -1;
+        w = map.getW();
+        h = map.getH();
     }
 
     public void moveInterface() {
         Random random = new Random();
-        //  int xPos, yPos;
         // move
         if(nextStep!=-1) {
             state = true;
             nowDirection = position.getDirection();
             switch (nextStep) {
                 case 1://move to front
-                    /*
-                    int r = random.nextInt(100);   //ê¹??‚˜?¼ê°? ?‘?„±     ?‘?„±?•œ ë¶?ë¶? ?œ?¤?œ¼ë¡? ?˜¤?‘?™ ?¼?œ¼?‚´
-                    if(r<30 && r>=20){
+                    int x = map.getRealPos().getX(), y = map.getRealPos().getY();
+                    int r = random.nextInt(100);   //ï¿½??ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½     ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ï¿½?ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+                    if(r<30 && r>=20 && 0 <= x - 2 && x + 2 <= w && 0 <= y - 2 && y + 2 <= h){
                         position.setPosition(position.front());
-                        sensor = getSensorData();   //?‹¬?´ ??ì§ì´ê¸°ì „ ?””?…?Œ…
+                        sensor = getSensorData();   //?ï¿½ï¿½?ï¿½ï¿½ ??ì§ì´ê¸°ì „ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
                         if(sensor.isHazard()==true){
-                            System.out.print("Sim?´ 2ì¹¸ì„ ê°?? ¤?–ˆì§?ë§? ?•?— hazardê°? ë°œê²¬?˜?–´ 1ì¹¸ë§Œ ê°?");
+                            System.out.print("Sim?ï¿½ï¿½ 2ì¹¸ì„ ï¿½??ï¿½ï¿½?ï¿½ï¿½ï¿½?ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ hazardï¿½? ë°œê²¬?ï¿½ï¿½?ï¿½ï¿½ 1ì¹¸ë§Œ ï¿½?");
                             map.setRealPos(position);
                         }
                         else{
-                            System.out.println("Sim?´ ?˜¤?‘?™?„ ?•´ 2ì¹¸ì„ ê°?");
+                            System.out.println("Sim?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ 2ì¹¸ì„ ï¿½?");
                             Position tmp = new Position(position.front().getX(), position.front().getY());
                             tmp.setDirection(position.getDirection());
-                            map.setRealPos(tmp); // ?œ„?—?„œ ?•œì¹¸ê?ê³? ?—¬ê¸°ì„œ ?•œì¹? ê°”ìœ¼?‹ˆ ?‘ì¹? ê°? ê°’ì´ ? ?š©
+                            map.setRealPos(tmp); // ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ì¹¸ï¿½?ï¿½? ?ï¿½ï¿½ê¸°ì„œ ?ï¿½ï¿½ï¿½? ê°”ìœ¼?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ï¿½? ê°’ì´ ?ï¿½ï¿½?ï¿½ï¿½
                         }
                     }
                     else if(r < 20){
-                        System.out.println("Sim?´ ?˜¤?‘?™?„ ?•´ ??ì§ì´ì§? ?•Š?Œ");
+                        System.out.println("Sim?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ ??ì§ì´ï¿½? ?ï¿½ï¿½?ï¿½ï¿½");
                         map.setRealPos(new Position(position.getX(), position.getY()));
                         position.setPosition(position.front());
-
                     }
-
                     else {
                         position.setPosition(position.front());
                         map.setRealPos(position);
-                    }*/
-                    position.setPosition(position.front());
-                    map.setRealPos(position);
+                    }
                     break;
                 case 2://turn right
                     nowDirection = (nowDirection + 1) % 4;
-                    nowDirection = nowDirection == 0 ? 4 : nowDirection;
-                    position.setDirection(nowDirection);
-                    break;
-                case 3://turn left
-                    nowDirection = (nowDirection - 1) % 4;
                     nowDirection = nowDirection == 0 ? 4 : nowDirection;
                     position.setDirection(nowDirection);
                     break;

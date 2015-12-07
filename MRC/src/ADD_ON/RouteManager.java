@@ -246,7 +246,9 @@ public class RouteManager {
             next.setDirection(direction);
 
             if(now.left().equals(next)) {
-                route.addExe(3);
+                route.addExe(2);
+                route.addExe(2);
+                route.addExe(2);
                 direction = now.getDirection() - 1 == 0 ? 4 : now.getDirection() - 1;
                 next.setDirection(direction);
             }
@@ -256,8 +258,8 @@ public class RouteManager {
                 next.setDirection(direction);
             }
             else if(now.back().equals(next)) {
-                route.addExe(3);
-                route.addExe(3);
+                route.addExe(2);
+                route.addExe(2);
                 direction = now.getDirection() - 2 == 0 ? 4 : now.getDirection() - 2 == -1 ? 3 : now.getDirection() - 2;
                 next.setDirection(direction);
             }
