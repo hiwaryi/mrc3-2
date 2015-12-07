@@ -194,32 +194,33 @@ public class MapForm extends JFrame{
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component c = super.prepareRenderer(renderer, row, column);
                 JLabel label = new JLabel();
+                ClassLoader cl = this.getClass().getClassLoader();
 
                 if(tempMap[row][column]==1) {
-                    label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/hazard.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                    label.setIcon(new ImageIcon(new ImageIcon(cl.getResource("main/resource/hazard.png")).getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
                     return label;
                 }
                 else if(tempMap[row][column]==2) {
-                    label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/colorblob.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                    label.setIcon(new ImageIcon(new ImageIcon(cl.getResource("main/resource/colorblob.png")).getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
                     return label;
                 }
                 else if(tempMap[row][column]==3) {
-                    label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/spot.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                    label.setIcon(new ImageIcon(new ImageIcon(cl.getResource("main/resource/spot.png")).getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
                     return label;
                 }
                 else if(tempMap[row][column]>=5) {
                     switch(addonmain.getSim().getPosition().getDirection()){
                         case 1 :
-                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/back.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            label.setIcon(new ImageIcon(new ImageIcon(cl.getResource("main/resource/back.png")).getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
                             break;
                         case 2 :
-                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/right.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            label.setIcon(new ImageIcon(new ImageIcon(cl.getResource("main/resource/right.png")).getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
                             break;
                         case 3 :
-                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/front.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            label.setIcon(new ImageIcon(new ImageIcon(cl.getResource("main/resource/front.png")).getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
                             break;
                         case 4 :
-                            label.setIcon(new ImageIcon(new ImageIcon("/Users/WarYi/Desktop/left.png").getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
+                            label.setIcon(new ImageIcon(new ImageIcon(cl.getResource("main/resource/left.png")).getImage().getScaledInstance(340 / size.getY(), 340 / size.getY(), Image.SCALE_SMOOTH)));
                             break;
                         default :
                             break;
