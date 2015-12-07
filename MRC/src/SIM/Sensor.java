@@ -22,23 +22,11 @@ public class Sensor {
         return hazard;
     }
 
-    public void setHazard(boolean hazard) {
-        this.hazard = hazard;
-    }
-
     public Colorblob getCb() {
         return cb;
     }
 
-    public void setCb(Colorblob cb) {
-        this.cb = cb;
-    }
-
     public Position getPos() {
         return pos;
-    }
-
-    public void setPos(Position pos) {
-        this.pos = pos;
     }
 }

@@ -4,6 +4,7 @@ package ADD_ON.Interface;
 import ADD_ON.Control.MapManager;
 import ADD_ON.Control.RouteManager;
 import ADD_ON.Control.SensorManager;
+import ADD_ON.Data.Map;
 import ADD_ON.addonmain;
 import SIM.Position;
 
@@ -33,8 +34,7 @@ public class MapForm extends JFrame{
     private JScrollPane jscrollpane;
     private JTable jtable;
     private TableColumn column;
-    private ADD_ON.Data.map map;
-    private Position position;
+    private Map map;
 
     public MapForm(addonmain addonmain) {
         getContentPane().setLayout(null);
@@ -104,7 +104,7 @@ public class MapForm extends JFrame{
                 addonmain.setMapManager(mapManager);
                 map = mapManager.getMap();
                 MakeMapForm(mapManager.getMapSize());
-                addonmain.yay();
+                addonmain.afterIntialize();
             }
         });
 
@@ -162,7 +162,7 @@ public class MapForm extends JFrame{
                     map.setPosEx(sim.getPosition().getX(), sim.getPosition().getY());
                     sim.setNextStep(nextStep);
                     System.out.println("now : " + sim.getPosition().getX() + ", " + sim.getPosition().getY());
-                    sensorManager.determineSensoring();
+                    sensorManager.determineSensorData();
                     map.setPosNow(sim.getPosition().getX(), sim.getPosition().getY());
                 }
                 else
@@ -175,7 +175,7 @@ public class MapForm extends JFrame{
 
     public void MakeMapForm(Position size){
         int interval;
-        int[][] tempMap = map.getMap();
+        int[][] tempMap = map.getMapData();
         Position pos = map.getStart();
         map.setPosNow(pos.getX(), pos.getY());
         jscrollpane = new JScrollPane();

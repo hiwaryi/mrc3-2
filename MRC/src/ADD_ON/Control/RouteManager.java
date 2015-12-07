@@ -1,7 +1,7 @@
 package ADD_ON.Control;
 
+import ADD_ON.Data.Map;
 import ADD_ON.Data.Route;
-import ADD_ON.Data.map;
 import SIM.*;
 
 import java.util.ArrayList;
@@ -34,10 +34,6 @@ class Astar { // blocks for astar
         return cur;
     }
 
-    public void setCur(Position cur) {
-        this.cur = cur;
-    }
-
     public int getF() {
         return F;
     }
@@ -46,16 +42,8 @@ class Astar { // blocks for astar
         F = G + H;
     }
 
-    public int getG() {
-        return G;
-    }
-
     public void setG(int g) {
         G = g;
-    }
-
-    public int getH() {
-        return H;
     }
 
     public void setH(int h) {
@@ -72,32 +60,22 @@ class Astar { // blocks for astar
 }
 
 public class RouteManager {
-    private Position expectedPosition;
     private Route route;
-    private ADD_ON.Data.map map;
+    private Map addonMap;
     private List<Position> predefinedSpot;
 
     public RouteManager() {
-        this.expectedPosition = new Position();
         this.route = new Route();
-    }
-
-    public Position getExpectedPosition() {
-        return expectedPosition;
-    }
-
-    public void setExpectedPosition(Position expectedPosition) {
-        this.expectedPosition = expectedPosition;
     }
 
     // composite a* algorithm
     private Position a_star(Position from, Position to){
         Position cur = from;
-        int w = map.getW(), h = map.getH();
+        int w = addonMap.getW(), h = addonMap.getH();
         Astar[][] astar  = new Astar[h][w];
         List<Position> openList = new ArrayList<Position>();
         List<Position> closedList = new ArrayList<Position>();
-        int[][] mapArray = map.getMap();
+        int[][] mapArray = addonMap.getMapData();
         int[][] d = {
                 {0, -1}, {-1, 0}, {1, 0}, {0, 1}
         };
@@ -108,8 +86,8 @@ public class RouteManager {
         }
 
         // initializing
-        for(Position pos : map.getHazard()){
-            if(map.getMapdata(pos) == 1)
+        for(Position pos : addonMap.getHazard()){
+            if(addonMap.getMapValueAt(pos) == 1)
                 astar[pos.getY()][pos.getX()].setState(1);
         }
 
@@ -203,11 +181,10 @@ public class RouteManager {
         return to;
     }
 
-    public void makeRoute(map map, Position from){
-        route.clearExe();
+    public void makeRoute(Map map, Position from){
+        route.getStep();
 
         Position cur = new Position(from.getX(), from.getY());
-        int w = map.getW(), h = map.getH();
         predefinedSpot = new ArrayList<>();
 
         for(Position pos : map.getPredefinedSpot()){
@@ -217,7 +194,7 @@ public class RouteManager {
         boolean[] check = new boolean[map.getPredefinedSpot().size()];
         for(int i = 0; i < map.getPredefinedSpot().size(); i++)
             check[i] = false;
-        this.map = map;
+        this.addonMap = map;
 
         int repeat = predefinedSpot.size();
         while(repeat > 0){
@@ -237,7 +214,6 @@ public class RouteManager {
 
             cur = a_star(cur, predefinedSpot.get(next_index)); // get route
             repeat = predefinedSpot.size();
-//            cur = predefinedSpot.remove(next_index); // make min distance spot to current position
         }
 
         Position now = new Position(from.getX(), from.getY());
@@ -248,31 +224,31 @@ public class RouteManager {
             next.setDirection(direction);
 
             if(now.left().equals(next)) {
-                route.addExe(2);
-                route.addExe(2);
-                route.addExe(2);
+                route.addStep(2);
+                route.addStep(2);
+                route.addStep(2);
                 direction = now.getDirection() - 1 == 0 ? 4 : now.getDirection() - 1;
                 next.setDirection(direction);
             }
             else if(now.right().equals(next)) {
-                route.addExe(2);
+                route.addStep(2);
                 direction = now.getDirection() + 1 == 5 ? 1 : now.getDirection() + 1;
                 next.setDirection(direction);
             }
             else if(now.back().equals(next)) {
-                route.addExe(2);
-                route.addExe(2);
+                route.addStep(2);
+                route.addStep(2);
                 direction = now.getDirection() - 2 == 0 ? 4 : now.getDirection() - 2 == -1 ? 3 : now.getDirection() - 2;
                 next.setDirection(direction);
             }
 
-            route.addExe(1);
+            route.addStep(1);
             now = next;
         }
 
     }
 
     public Integer orderNextStep(){
-        return route.getExe();
+        return route.getStep();
     }
 }

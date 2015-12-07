@@ -22,10 +22,6 @@ public class Route {
         return this.route.poll();
     }
 
-    public void clearSteps(){
-        step.clear();
-    }
-
     public boolean isEmpty(){
         if(route.size() == 0)
             return true;

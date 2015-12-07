@@ -3,7 +3,6 @@ package SIM;
 import java.util.Random;
 
 public class sim {
-    private boolean state;
     private int nextStep, nowDirection;
     private final int FRONT = 1;
     private final int RIGHT = 2;
@@ -17,8 +16,7 @@ public class sim {
 
     public sim(Simmap map){
         this.map = map;
-        position = map.getStartPosition();
-        state = false;
+        position = map.getStart();
         nextStep = -1;
         w = map.getW();
         h = map.getH();
@@ -28,28 +26,27 @@ public class sim {
         Random random = new Random();
         // move
         if(nextStep!=-1) {
-            state = true;
             nowDirection = position.getDirection();
             switch (nextStep) {
                 case 1://move to front
                     int x = map.getRealPos().getX(), y = map.getRealPos().getY();
-                    int r = random.nextInt(100);   //�??��?���? ?��?��     ?��?��?�� �?�? ?��?��?���? ?��?��?�� ?��?��?��
+                    int r = random.nextInt(100);   // random number to raise SIM's malfunctioning
                     if(r<30 && r>=20 && 0 <= x - 2 && x + 2 <= w && 0 <= y - 2 && y + 2 <= h){
                         position.setPosition(position.front());
-                        sensor = getSensorData();   //?��?�� ??직이기전 ?��?��?��
+                        sensor = getSensorData();   // sensing before move twice to not get bombed
                         if(sensor.isHazard()==true){
-                            System.out.print("Sim?�� 2칸을 �??��?���?�? ?��?�� hazard�? 발견?��?�� 1칸만 �?");
+                            System.out.print("SIM malfunctioned! (tried to move twice, but there is hazard spot)");
                             map.setRealPos(position);
                         }
                         else{
-                            System.out.println("Sim?�� ?��?��?��?�� ?�� 2칸을 �?");
+                            System.out.println("SIM malfunctioned! (moved twice)");
                             Position tmp = new Position(position.front().getX(), position.front().getY());
                             tmp.setDirection(position.getDirection());
-                            map.setRealPos(tmp); // ?��?��?�� ?��칸�?�? ?��기서 ?���? 갔으?�� ?���? �? 값이 ?��?��
+                            map.setRealPos(tmp); // set real pos
                         }
                     }
                     else if(r < 20){
-                        System.out.println("Sim?�� ?��?��?��?�� ?�� ??직이�? ?��?��");
+                        System.out.println("SIM malfunctioned! (didn't move)");
                         map.setRealPos(new Position(position.getX(), position.getY()));
                         position.setPosition(position.front());
                     }
@@ -66,7 +63,6 @@ public class sim {
                 default:
                     break;
             }
-            state = false;
         }
     }
 
@@ -108,20 +104,9 @@ public class sim {
         if(backData == 2)
             cb.setBack(true);
 
-        // get Current Position
-//        Position pos = Map.getRealPos();
-
         Sensor mySensor = new Sensor(hazard, cb, position);
 
         return mySensor;
-    }
-
-    public void forceStop() {
-        state = false;
-    }
-
-    public boolean getState() {
-        return state;
     }
 
     public Position getPosition() {
