@@ -194,7 +194,7 @@ public class RouteManager {
     }
 
     public void makeRoute(Map Map, Position from){
-        route.clearExe();
+        route.clearSteps();
 
         Position cur = new Position(from.getX(), from.getY());
         predefinedSpot = new ArrayList<>();
@@ -236,31 +236,31 @@ public class RouteManager {
             next.setDirection(direction);
 
             if(now.left().equals(next)) {
-                route.addExe(2);
-                route.addExe(2);
-                route.addExe(2);
+                route.addStep(2);
+                route.addStep(2);
+                route.addStep(2);
                 direction = now.getDirection() - 1 == 0 ? 4 : now.getDirection() - 1;
                 next.setDirection(direction);
             }
             else if(now.right().equals(next)) {
-                route.addExe(2);
+                route.addStep(2);
                 direction = now.getDirection() + 1 == 5 ? 1 : now.getDirection() + 1;
                 next.setDirection(direction);
             }
             else if(now.back().equals(next)) {
-                route.addExe(2);
-                route.addExe(2);
+                route.addStep(2);
+                route.addStep(2);
                 direction = now.getDirection() - 2 == 0 ? 4 : now.getDirection() - 2 == -1 ? 3 : now.getDirection() - 2;
                 next.setDirection(direction);
             }
 
-            route.addExe(1);
+            route.addStep(1);
             now = next;
         }
 
     }
 
     public Integer getNextStep(){
-        return route.getExe();
+        return route.getStep();
     }
 }
