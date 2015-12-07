@@ -1,6 +1,6 @@
 package ADD_ON.Control;
 
-import ADD_ON.Data.map;
+import ADD_ON.Data.Map;
 import ADD_ON.Interface.MapForm;
 import SIM.Position;
 import SIM.Simmap;
@@ -18,7 +18,7 @@ public class MapManager {
     public static final int PREDEFINED = 3;
     public static final int HIDEHAZARD = 4;
 
-    private ADD_ON.Data.map map;
+    private Map Map;
     private Simmap simmap;
     private Position startPosition;
     public int[][] tempMap;
@@ -40,7 +40,7 @@ public class MapManager {
                     makeMap(temp[i]);
                     break;
                 case 1:
-                    map = new map(tempMap, getStartPosition(temp[i]));
+                    Map = new Map(tempMap, getStartPosition(temp[i]));
                     break;
                 case 2:
                     parseMapData(HAZARD, temp[i]);
@@ -82,7 +82,7 @@ public class MapManager {
                     int index = temp.indexOf(",");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    map.addHazard(new Position(x, y));
+                    Map.addHazard(new Position(x, y));
                 }
                 break;
 //            case COLORBLOB:
@@ -94,7 +94,7 @@ public class MapManager {
 //                    int index = temp.indexOf(",");
 //                    int x = Integer.parseInt(temp.substring(1, index));
 //                    int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-//                    map.addColorblob(new Position(x, y));
+//                    Map.addColorblob(new Position(x, y));
 //                }
 //                break;
             case PREDEFINED:
@@ -106,7 +106,7 @@ public class MapManager {
                     int index = temp.indexOf(",");
                     int x = Integer.parseInt(temp.substring(1, index));
                     int y = Integer.parseInt(temp.substring(index+1, temp.length()-1));
-                    map.addPredefinedSpot(new Position(x, y));
+                    Map.addPredefinedSpot(new Position(x, y));
                 }
                 break;
             default:
@@ -117,13 +117,13 @@ public class MapManager {
     public void updateColorblob(Position colorblob){
         int x = colorblob.getX(), y = colorblob.getY();
         if(0 <= x && x <= mapX && 0 <= y && y <= mapY)
-            map.addColorblob(colorblob);
+            Map.addColorblob(colorblob);
     }
 
     public void updateHazard(Position hazard){
         int x = hazard.getX(), y = hazard.getY();
         if(0 <= x && x <= mapX && 0 <= y && y <= mapY)
-            map.addHazard(hazard);
+            Map.addHazard(hazard);
     }
 
     private Position getStartPosition(String start){
@@ -134,8 +134,8 @@ public class MapManager {
         return startPosition;
     }
 
-    public map getMap(){
-        return map;
+    public Map getMap(){
+        return Map;
     }
 
     public Position getMapSize(){

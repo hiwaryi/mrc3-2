@@ -3,6 +3,7 @@ package ADD_ON;
 import ADD_ON.Control.MapManager;
 import ADD_ON.Control.RouteManager;
 import ADD_ON.Control.SensorManager;
+import ADD_ON.Data.Map;
 import ADD_ON.Interface.MapForm;
 import SIM.Position;
 import SIM.Simmap;
@@ -13,7 +14,7 @@ import javax.swing.JFrame;
 public class addonmain extends JFrame{
     private MapManager mapManager;
     private MapForm mapForm;
-    private ADD_ON.Data.map map;
+    private Map addonMap;
     private RouteManager routeManager;
     private Simmap simmap;
     private sim sim;
@@ -24,18 +25,18 @@ public class addonmain extends JFrame{
     }
 
     public void yay(){
-        map = mapManager.getMap();
+        addonMap = mapManager.getMap();
         routeManager = new RouteManager();
-        routeManager.makeRoute(map, map.getStart());
+        routeManager.makeRoute(addonMap, addonMap.getStartPosition());
 
-        int y = map.getMap().length, x = map.getMap()[0].length;
+        int y = addonMap.getMapData().length, x = addonMap.getMapData()[0].length;
         int[][] newMap = new int[y][x];
         for(int i = 0; i < y; i++){
             for(int j = 0; j < x; j++)
-                newMap[i][j] = map.getMapdata(new Position(j, i));
+                newMap[i][j] = addonMap.getMapValueAt(new Position(j, i));
         }
 
-        simmap = new Simmap(newMap, map.getStart());
+        simmap = new Simmap(newMap, addonMap.getStartPosition());
         sim = new sim(simmap);
         sensorManager = new SensorManager(sim, this);
     }

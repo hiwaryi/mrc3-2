@@ -29,7 +29,7 @@ public class SensorManager {
         Simmap simmap = addonmain.getSimmap();
         if(simPosition != simmap.getRealPos() ){   //김나라가 추가 현재 위치가  심의 현재 위치와 다르면 다시 루트 짜줌
             simPosition.setPosition(simmap.getRealPos());
-            if(mapManager.getMap().getMapdata(simPosition) == 3)
+            if(mapManager.getMap().getMapValueAt(simPosition) == 3)
                 mapManager.getMap().getPredefinedSpot().remove(simPosition);
             routeManager.makeRoute(mapManager.getMap(), simPosition);
         }
@@ -38,10 +38,10 @@ public class SensorManager {
         hazard = sensor.isHazard();
         cb = sensor.getCb();
 
-        if(mapManager.getMap().getMapdata(simPosition) == 3)
+        if(mapManager.getMap().getMapValueAt(simPosition) == 3)
             mapManager.getMap().getPredefinedSpot().remove(simPosition);
 
-        if (hazard == true && mapManager.getMap().getMapdata(simPosition.front()) != 1) {
+        if (hazard == true && mapManager.getMap().getMapValueAt(simPosition.front()) != 1) {
             Position front = simPosition.front();
             mapManager.updateHazard(front);
             routeManager.makeRoute(mapManager.getMap(), simPosition);

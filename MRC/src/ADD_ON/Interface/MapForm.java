@@ -4,6 +4,7 @@ package ADD_ON.Interface;
 import ADD_ON.Control.MapManager;
 import ADD_ON.Control.RouteManager;
 import ADD_ON.Control.SensorManager;
+import ADD_ON.Data.Map;
 import ADD_ON.addonmain;
 import SIM.Position;
 
@@ -33,7 +34,7 @@ public class MapForm extends JFrame{
     private JScrollPane jscrollpane;
     private JTable jtable;
     private TableColumn column;
-    private ADD_ON.Data.map map;
+    private Map Map;
     private Position position;
 
     public MapForm(addonmain addonmain) {
@@ -102,7 +103,7 @@ public class MapForm extends JFrame{
                 mapManager = new MapManager(data);
 
                 addonmain.setMapManager(mapManager);
-                map = mapManager.getMap();
+                Map = mapManager.getMap();
                 MakeMapForm(mapManager.getMapSize());
                 addonmain.yay();
             }
@@ -159,11 +160,11 @@ public class MapForm extends JFrame{
                 int nextStep = routeManager.getNextStep();
 
                 if(nextStep != -1) {
-                    map.setPosEx(sim.getPosition().getX(), sim.getPosition().getY());
+                    Map.restoreMark(sim.getPosition().getX(), sim.getPosition().getY());
                     sim.setNextStep(nextStep);
                     System.out.println("now : " + sim.getPosition().getX() + ", " + sim.getPosition().getY());
                     sensorManager.determineSensorData();
-                    map.setPosNow(sim.getPosition().getX(), sim.getPosition().getY());
+                    Map.markSIMPosition(sim.getPosition().getX(), sim.getPosition().getY());
                 }
                 else
                     System.out.println("finish!");
@@ -175,9 +176,9 @@ public class MapForm extends JFrame{
 
     public void MakeMapForm(Position size){
         int interval;
-        int[][] tempMap = map.getMap();
-        Position pos = map.getStart();
-        map.setPosNow(pos.getX(), pos.getY());
+        int[][] tempMap = Map.getMapData();
+        Position pos = Map.getStartPosition();
+        Map.markSIMPosition(pos.getX(), pos.getY());
         jscrollpane = new JScrollPane();
         jscrollpane.setBounds(12, 6, 320, 320);
 

@@ -1,7 +1,7 @@
 package ADD_ON.Control;
 
+import ADD_ON.Data.Map;
 import ADD_ON.Data.Route;
-import ADD_ON.Data.map;
 import SIM.*;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ class Astar { // blocks for astar
 
 public class RouteManager {
     private Route route;
-    private ADD_ON.Data.map map;
+    private Map Map;
     private List<Position> predefinedSpot;
 
     public RouteManager() {
@@ -83,11 +83,11 @@ public class RouteManager {
     // composite a* algorithm
     private Position a_star(Position from, Position to){
         Position cur = from;
-        int w = map.getW(), h = map.getH();
+        int w = Map.getW(), h = Map.getH();
         Astar[][] astar  = new Astar[h][w];
         List<Position> openList = new ArrayList<Position>();
         List<Position> closedList = new ArrayList<Position>();
-        int[][] mapArray = map.getMap();
+        int[][] mapArray = Map.getMapData();
         int[][] d = {
                 {0, -1}, {-1, 0}, {1, 0}, {0, 1}
         };
@@ -98,8 +98,8 @@ public class RouteManager {
         }
 
         // initializing
-        for(Position pos : map.getHazard()){
-            if(map.getMapdata(pos) == 1)
+        for(Position pos : Map.getHazard()){
+            if(Map.getMapValueAt(pos) == 1)
                 astar[pos.getY()][pos.getX()].setState(1);
         }
 
@@ -193,20 +193,20 @@ public class RouteManager {
         return to;
     }
 
-    public void makeRoute(map map, Position from){
+    public void makeRoute(Map Map, Position from){
         route.clearExe();
 
         Position cur = new Position(from.getX(), from.getY());
         predefinedSpot = new ArrayList<>();
 
-        for(Position pos : map.getPredefinedSpot()){
+        for(Position pos : Map.getPredefinedSpot()){
             predefinedSpot.add(new Position(pos.getX(), pos.getY()));
         }
 
-        boolean[] check = new boolean[map.getPredefinedSpot().size()];
-        for(int i = 0; i < map.getPredefinedSpot().size(); i++)
+        boolean[] check = new boolean[Map.getPredefinedSpot().size()];
+        for(int i = 0; i < Map.getPredefinedSpot().size(); i++)
             check[i] = false;
-        this.map = map;
+        this.Map = Map;
 
         int repeat = predefinedSpot.size();
         while(repeat > 0){
